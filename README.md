@@ -8,13 +8,13 @@ A list of results will be returned.
 Users can select events of interest from the list to view additional event details, a map, and weather information.
 
 ## APIs used:
-    [Eventful](http://api.eventful.com)
-    [Google Maps JS API](https://developers.google.com/maps)
-    [Open Weather Map](https://openweathermap.org/api)
+[Eventful](http://api.eventful.com)
+[Google Maps JS API](https://developers.google.com/maps)
+[Open Weather Map](https://openweathermap.org/api)
 
 
 ### Collaborators:
-    [John](https://github.com/jjohnp5)
-    [Courtney](https://github.com/courtneydm)
-    [Lauren](https://github.com/leabney)
-    [Jessica](https://github.com/jnperk1234)
+[John](https://github.com/jjohnp5)
+[Courtney](https://github.com/courtneydm)
+[Lauren](https://github.com/leabney)
+[Jessica](https://github.com/jnperk1234)
