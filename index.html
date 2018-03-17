@@ -13,6 +13,7 @@
 <body>
     <h3>My Google Maps Demo</h3>
     <div id="map"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script type="text/javascript" src="http://api.eventful.com/js/api"></script>
     <script>
         
@@ -21,7 +22,9 @@
             var long = "";
             
             var oArgs = {
-
+                method: 'GET',
+                url: "http://api.eventful.com/json/events/search",
+                data :{
                 app_key: "2DXR829kvdp9JrdB",
 
                 location: "Dallas",
@@ -29,24 +32,34 @@
                 page_size: 5,
                 sort_order: 'popularity',
                 date: "Next Week"
+                },
+                dataType: 'jsonp',
+                crossDomain: true
 
             };
 
-            EVDB.API.call("/events/search", oArgs, function (oData) {
-                lat = parseFloat(oData.events.event[1].latitude);
-                long = parseFloat(oData.events.event[1].longitude);
-                initMap(lat, long, oData.events.event[1].title );
-            
-                console.log(oData);
+            $.ajax(oArgs)
+                .then(function(oData){
+                    lat = parseFloat(oData.events.event[1].latitude);
+                    long = parseFloat(oData.events.event[1].longitude)
+                    console.log(oData);
+                    let eventData = {
+                        title: oData.events.event[1].title,
+                        venue_name: oData.events.event[1].venue_name,
+                        venue_address: oData.events.event[1].venue_address,
+                        city_name: oData.events.event[1].city_name,
 
-            });
+                    }
+                    initMap(lat, long, eventData);
+                })
+            
             
 
         }
         show_alert();
     </script>
     <script>
-        function initMap(lat, long, title) {
+        function initMap(lat, long, eventData) {
             var infoWindow = new google.maps.InfoWindow;
             var uluru = { lat: lat, lng: long };
             infoWindow.setPosition(uluru);
@@ -59,9 +72,18 @@
                 position: uluru,
                 map: map
             });
-            marker.addListener('mouseover',function(e){
+            marker.addListener('click',function(e){
                 infoWindow.open(map);
-                infoWindow.setContent(title);
+                infoWindow.setContent(`
+                    <div>
+                        <h1>${eventData.title}</h1>
+                        <h3>${eventData.venue_name}</h3>
+                        <p>${eventData.venue_address}</p>
+                        <p>${eventData.city_name}</p>
+
+                    </div>
+
+                `);
             });
         }
     </script>
