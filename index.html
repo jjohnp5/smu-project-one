@@ -11,13 +11,27 @@
 </head>
 
 <body>
+    <form action="">
+        <label for="location">Location: <input type="text" id="location"></label>
+        <label for="category">Category: <input type="text" id="category"></label>
+        <div class="cat"></div>
+        <button>Submit</button>
+    </form>
     <h3>My Google Maps Demo</h3>
     <div id="map"></div>
+    <div class="events">
+            <h3>Events</h3>
+            <div class="event-list">
+
+            </div>
+    </div>
+    
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script type="text/javascript" src="http://api.eventful.com/js/api"></script>
     <script>
         
-        function show_alert() {
+        function show_alert(loc, cat) {
             var lat = "";
             var long = "";
             
@@ -27,9 +41,9 @@
                 data :{
                 app_key: "2DXR829kvdp9JrdB",
 
-                location: "Dallas",
-                category: "Coding",
-                page_size: 5,
+                location: loc,
+                category: cat,
+                // page_size: 25,
                 sort_order: 'popularity',
                 date: "Next Week"
                 },
@@ -40,25 +54,69 @@
 
             $.ajax(oArgs)
                 .then(function(oData){
-                    lat = parseFloat(oData.events.event[1].latitude);
-                    long = parseFloat(oData.events.event[1].longitude)
+                    lat = parseFloat(oData.events.event[0].latitude);
+                    long = parseFloat(oData.events.event[0].longitude)
                     console.log(oData);
                     let eventData = {
-                        title: oData.events.event[1].title,
-                        venue_name: oData.events.event[1].venue_name,
-                        venue_address: oData.events.event[1].venue_address,
-                        city_name: oData.events.event[1].city_name,
+                        title: oData.events.event[0].title,
+                        venue_name: oData.events.event[0].venue_name,
+                        venue_address: oData.events.event[0].venue_address,
+                        city_name: oData.events.event[0].city_name,
 
                     }
+
                     initMap(lat, long, eventData);
+                    $('.event-list').empty();
+                    oData.events.event.forEach((event) =>{
+                        content = $('<div class="event">');
+                        title = $('<h4>').text(event.title);
+                        venue_name = $('<p>').text(event.venue_name);
+                        venue_address = $('<p>').text(event.venue_address).on('click', (e)=>{
+                            initMap(parseFloat(event.latitude), parseFloat(event.longitude), {title: event.title, venue_name : event.venue_name, venue_address: event.venue_address, city_name: event.city_name})
+                        });
+                        city_name = $('<p>').text(event.city_name);
+                        content.append(title, venue_name, venue_address, city_name);
+                        $('.event-list').append(content);
+                    })
                 })
             
             
 
         }
-        show_alert();
-    </script>
-    <script>
+        const categ = document.querySelector('#category');
+        $('.cat').css({position: "absolute", top: `${categ.getBoundingClientRect().top + categ.offsetHeight}px`, left: `${categ.getBoundingClientRect().left}px`, width: `${categ.offsetWidth}px`, zIndex: 999, backgroundColor: "white"})
+        $('#category').on('keyup', function(){
+            let self = $(this);
+            
+            $.ajax({
+                url: "http://api.eventful.com/json/categories/list?app_key=2DXR829kvdp9JrdB",
+                method: 'GET',
+                dataType: 'jsonp',
+                crossDomain: true
+            }).done(function(data){
+                $('.cat').empty();
+                data.category.forEach(cat => {
+                    if(cat.id.indexOf(self.val().trim()) !== -1){
+                        $('.cat').append($('<div>').text(cat.id).on('click', function(){
+                            $('#category').val(cat.id)
+                            $('.cat').empty();
+                        }).on('mouseover', function(){
+                            $(this).css({backgroundColor: "lightgray"});
+                        }).on('mouseout', function(){
+                            $(this).css({backgroundColor: "white"});
+                        }));
+                    }
+                })
+            })
+        }).on('focus', function(){
+            $('.cat').html($('<h5>').text("Start typing for available categories.."));
+        })
+        $("button").on('click', (e)=>{
+            e.preventDefault();
+            show_alert($('#location').val().trim(), $('#category').val().trim());
+        })
+        
+    
         function initMap(lat, long, eventData) {
             var infoWindow = new google.maps.InfoWindow;
             var uluru = { lat: lat, lng: long };
