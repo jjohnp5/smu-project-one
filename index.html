@@ -109,7 +109,9 @@
                 })
             })
         }).on('focus', function(){
-            $('.cat').html($('<h5>').text("Start typing for available categories.."));
+            if(!$('#category').val()){
+                $('.cat').html($('<h5>').text("Start typing for available categories.."));
+            }
         })
         $("button").on('click', (e)=>{
             e.preventDefault();
