@@ -7,6 +7,13 @@
             height: 400px;
             width: 100%;
         }
+        ul{
+            list-style: none;
+            -webkit-padding-start: 0;
+        }
+        .selected {
+            background-color: grey;
+        }
     </style>
 </head>
 
@@ -14,7 +21,7 @@
     <form action="">
         <label for="location">Location: <input type="text" id="location"></label>
         <label for="category">Category: <input type="text" id="category"></label>
-        <div class="cat"></div>
+        <ul class="cat"></ul>
         <button>Submit</button>
     </form>
     <h3>My Google Maps Demo</h3>
@@ -30,7 +37,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script type="text/javascript" src="http://api.eventful.com/js/api"></script>
     <script>
-        
+        let $listItems;
         function show_alert(loc, cat) {
             var lat = "";
             var long = "";
@@ -54,6 +61,11 @@
 
             $.ajax(oArgs)
                 .then(function(oData){
+                    if(!oData.events){
+                        alert('No events on the city selected, please try again.');
+                        $('#location').val('').focus();
+                        return;
+                    }
                     lat = parseFloat(oData.events.event[0].latitude);
                     long = parseFloat(oData.events.event[0].longitude)
                     console.log(oData);
@@ -85,8 +97,10 @@
         }
         const categ = document.querySelector('#category');
         $('.cat').css({position: "absolute", top: `${categ.getBoundingClientRect().top + categ.offsetHeight}px`, left: `${categ.getBoundingClientRect().left}px`, width: `${categ.offsetWidth}px`, zIndex: 999, backgroundColor: "white"})
-        $('#category').on('keyup', function(){
+        $('#category').on('keyup', function(e){
             let self = $(this);
+
+            if ( e.keyCode == 40 || e.keyCode == 38 ) return;
             
             $.ajax({
                 url: "http://api.eventful.com/json/categories/list?app_key=2DXR829kvdp9JrdB",
@@ -97,26 +111,67 @@
                 $('.cat').empty();
                 data.category.forEach(cat => {
                     if(cat.id.indexOf(self.val().trim()) !== -1){
-                        $('.cat').append($('<div>').text(cat.id).on('click', function(){
+                        $('.cat').append($('<li>').text(cat.id).on('click', function(){
                             $('#category').val(cat.id)
                             $('.cat').empty();
                         }).on('mouseover', function(){
-                            $(this).css({backgroundColor: "lightgray"});
-                        }).on('mouseout', function(){
-                            $(this).css({backgroundColor: "white"});
+                            $('.cat li').removeClass('selected');
+                            $(this).addClass('selected');
+                            self.val($(this).text());
                         }));
                     }
                 })
+                $listItems = $('.cat li');
             })
-        }).on('focus', function(){
-            $('.cat').html($('<h5>').text("Start typing for available categories.."));
+        })
+        .on('focus', function(){
+            if(!$(this).val()){
+                $('.cat').html($('<h5>').text("Start typing for available categories.."));
+            }
+        }).on('blur', function(){
+            $('.cat').empty();
         })
         $("button").on('click', (e)=>{
             e.preventDefault();
             show_alert($('#location').val().trim(), $('#category').val().trim());
         })
         
-    
+
+        $('#category').on('keydown', function(e){
+            
+            let key = e.keyCode,
+                $selected = $listItems.filter('.selected'),
+                $current;
+
+            if ( key != 40 && key != 38 ) return;
+
+            $listItems.removeClass('selected');
+
+            if ( key == 40 ) // Down key
+            {
+                if ( ! $selected.length || $selected.is('li:last-child') ) {
+                    
+                    $current = $listItems.eq(0);
+                    console.log($current);
+                }
+                else {
+                    $current = $selected.next();
+                }
+            }
+            else if ( key == 38 ) // Up key
+            {
+                if ( ! $selected.length || $selected.is('li:first-child') ) {
+                    $current = $listItems.last();
+                }
+                else {
+                    $current = $selected.prev();
+                }
+            }
+            $(this).val($current.text());
+            $current.addClass('selected');
+            
+            });
+
         function initMap(lat, long, eventData) {
             var infoWindow = new google.maps.InfoWindow;
             var uluru = { lat: lat, lng: long };
@@ -144,6 +199,7 @@
                 `);
             });
         }
+        
     </script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPUWhQgbEHM3-FjpHcb4yqDBjZ2dwfMs0&callback=initMap">
     </script>
