@@ -12,40 +12,44 @@
 
 <body>
     <form action="">
-        <label for="location">Location: <input type="text" id="location"></label>
-        <label for="category">Category: <input type="text" id="category"></label>
+        <label for="location">Location:
+            <input type="text" id="location">
+        </label>
+        <label for="category">Category:
+            <input type="text" id="category">
+        </label>
         <div class="cat"></div>
         <button>Submit</button>
     </form>
     <h3>My Google Maps Demo</h3>
     <div id="map"></div>
     <div class="events">
-            <h3>Events</h3>
-            <div class="event-list">
+        <h3>Events</h3>
+        <div class="event-list">
 
-            </div>
+        </div>
     </div>
-    
+
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script type="text/javascript" src="http://api.eventful.com/js/api"></script>
     <script>
-        
+
         function show_alert(loc, cat) {
             var lat = "";
             var long = "";
-            
+
             var oArgs = {
                 method: 'GET',
                 url: "http://api.eventful.com/json/events/search",
-                data :{
-                app_key: "2DXR829kvdp9JrdB",
+                data: {
+                    app_key: "2DXR829kvdp9JrdB",
 
-                location: loc,
-                category: cat,
-                // page_size: 25,
-                sort_order: 'popularity',
-                date: "Next Week"
+                    location: loc,
+                    category: cat,
+                    // page_size: 25,
+                    sort_order: 'popularity',
+                    date: "Next Week"
                 },
                 dataType: 'jsonp',
                 crossDomain: true
@@ -53,7 +57,7 @@
             };
 
             $.ajax(oArgs)
-                .then(function(oData){
+                .then(function (oData) {
                     lat = parseFloat(oData.events.event[0].latitude);
                     long = parseFloat(oData.events.event[0].longitude)
                     console.log(oData);
@@ -67,61 +71,61 @@
 
                     initMap(lat, long, eventData);
                     $('.event-list').empty();
-                    oData.events.event.forEach((event) =>{
+                    oData.events.event.forEach((event) => {
                         content = $('<div class="event">');
                         title = $('<h4>').text(event.title);
                         venue_name = $('<p>').text(event.venue_name);
-                        venue_address = $('<p>').text(event.venue_address).on('click', (e)=>{
-                            initMap(parseFloat(event.latitude), parseFloat(event.longitude), {title: event.title, venue_name : event.venue_name, venue_address: event.venue_address, city_name: event.city_name})
+                        venue_address = $('<p>').text(event.venue_address).on('click', (e) => {
+                            initMap(parseFloat(event.latitude), parseFloat(event.longitude), { title: event.title, venue_name: event.venue_name, venue_address: event.venue_address, city_name: event.city_name })
                         });
                         city_name = $('<p>').text(event.city_name);
                         content.append(title, venue_name, venue_address, city_name);
                         $('.event-list').append(content);
                     })
                 })
-            
-            
+
+
 
         }
         const categ = document.querySelector('#category');
-        $('.cat').css({position: "absolute", top: `${categ.getBoundingClientRect().top + categ.offsetHeight}px`, left: `${categ.getBoundingClientRect().left}px`, width: `${categ.offsetWidth}px`, zIndex: 999, backgroundColor: "white"})
-        $('#category').on('keyup', function(){
+        $('.cat').css({ position: "absolute", top: `${categ.getBoundingClientRect().top + categ.offsetHeight}px`, left: `${categ.getBoundingClientRect().left}px`, width: `${categ.offsetWidth}px`, zIndex: 999, backgroundColor: "white" })
+        $('#category').on('keyup', function () {
             let self = $(this);
-            
+
             $.ajax({
                 url: "http://api.eventful.com/json/categories/list?app_key=2DXR829kvdp9JrdB",
                 method: 'GET',
                 dataType: 'jsonp',
                 crossDomain: true
-            }).done(function(data){
+            }).done(function (data) {
                 $('.cat').empty();
                 data.category.forEach(cat => {
-                    if(cat.id.indexOf(self.val().trim()) !== -1){
-                        $('.cat').append($('<div>').text(cat.id).on('click', function(){
+                    if (cat.id.indexOf(self.val().trim()) !== -1) {
+                        $('.cat').append($('<div>').text(cat.id).on('click', function () {
                             $('#category').val(cat.id)
                             $('.cat').empty();
-                        }).on('mouseover', function(){
-                            $(this).css({backgroundColor: "lightgray"});
-                        }).on('mouseout', function(){
-                            $(this).css({backgroundColor: "white"});
+                        }).on('mouseover', function () {
+                            $(this).css({ backgroundColor: "lightgray" });
+                        }).on('mouseout', function () {
+                            $(this).css({ backgroundColor: "white" });
                         }));
                     }
                 })
             })
-        }).on('focus', function(){
+        }).on('focus', function () {
             $('.cat').html($('<h5>').text("Start typing for available categories.."));
         })
-        $("button").on('click', (e)=>{
+        $("button").on('click', (e) => {
             e.preventDefault();
             show_alert($('#location').val().trim(), $('#category').val().trim());
         })
-        
-    
+
+
         function initMap(lat, long, eventData) {
             var infoWindow = new google.maps.InfoWindow;
             var uluru = { lat: lat, lng: long };
             infoWindow.setPosition(uluru);
-            
+
             var map = new google.maps.Map(document.getElementById('map'), {
                 zoom: 15,
                 center: uluru
@@ -130,7 +134,7 @@
                 position: uluru,
                 map: map
             });
-            marker.addListener('click',function(e){
+            marker.addListener('click', function (e) {
                 infoWindow.open(map);
                 infoWindow.setContent(`
                     <div>
