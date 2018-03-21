@@ -7,10 +7,12 @@
             height: 400px;
             width: 100%;
         }
-        ul{
+
+        ul {
             list-style: none;
             -webkit-padding-start: 0;
         }
+
         .selected {
             background-color: grey;
         }
@@ -19,49 +21,67 @@
 
 <body>
     <form action="">
-        <label for="location">Location: <input type="text" id="location"></label>
-        <label for="category">Category: <input type="text" id="category"></label>
+        <label for="location">Location:
+            <input type="text" id="location">
+        </label>
+        <label for="category">Category:
+            <input type="text" id="category">
+        </label>
         <ul class="cat"></ul>
         <button>Submit</button>
     </form>
     <h3>My Google Maps Demo</h3>
     <div id="map"></div>
     <div class="events">
-            <h3>Events</h3>
-            <div class="event-list">
+        <h3>Events</h3>
+        <span id="temp"></span>
+        <div class="event-list">
 
-            </div>
+        </div>
     </div>
-    
+
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script type="text/javascript" src="http://api.eventful.com/js/api"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/moment.min.js"></script>
     <script>
         let $listItems;
         function show_alert(loc, cat) {
             var lat = "";
             var long = "";
-            
+            var weatherURL = "https://api.openweathermap.org/data/2.5/weather?q=";
+            var weatherAPI = "44df1c912088b9675614938b52bcbd0e";
+            var now = moment();
+
             var oArgs = {
                 method: 'GET',
                 url: "http://api.eventful.com/json/events/search",
-                data :{
-                app_key: "2DXR829kvdp9JrdB",
+                data: {
+                    app_key: "2DXR829kvdp9JrdB",
 
-                location: loc,
-                category: cat,
-                // page_size: 25,
-                sort_order: 'popularity',
-                date: "Next Week"
+                    location: loc,
+                    category: cat,
+                    // page_size: 25,
+                    sort_order: 'popularity',
+                    date: "Next Week"
                 },
                 dataType: 'jsonp',
                 crossDomain: true
 
             };
 
+            var weatherObj = {
+                url: "https://api.openweathermap.org/data/2.5/weather",
+                method: "GET",
+                data: {
+                    appid: weatherAPI,
+                    q: loc
+                },
+            };
+
             $.ajax(oArgs)
-                .then(function(oData){
-                    if(!oData.events){
+                .then(function (oData) {
+                    if (!oData.events) {
                         alert('No events on the city selected, please try again.');
                         $('#location').val('').focus();
                         return;
@@ -79,42 +99,52 @@
 
                     initMap(lat, long, eventData);
                     $('.event-list').empty();
-                    oData.events.event.forEach((event) =>{
+                    oData.events.event.forEach((event) => {
                         content = $('<div class="event">');
                         title = $('<h4>').text(event.title);
                         venue_name = $('<p>').text(event.venue_name);
-                        venue_address = $('<p>').text(event.venue_address).on('click', (e)=>{
-                            initMap(parseFloat(event.latitude), parseFloat(event.longitude), {title: event.title, venue_name : event.venue_name, venue_address: event.venue_address, city_name: event.city_name})
+                        venue_address = $('<p>').text(event.venue_address).on('click', (e) => {
+                            initMap(parseFloat(event.latitude), parseFloat(event.longitude), { title: event.title, venue_name: event.venue_name, venue_address: event.venue_address, city_name: event.city_name })
                         });
                         city_name = $('<p>').text(event.city_name);
                         content.append(title, venue_name, venue_address, city_name);
                         $('.event-list').append(content);
                     })
+
                 })
-            
-             
+
+            // Weather AJAX Call
+            $.ajax(weatherObj).then(data => {
+                var tempConverted = parseInt((data.main.temp * (9 / 5) - 459.67));
+                var sunriseTime = moment.unix(data.sys.sunrise).format("HH:mm");
+                var sunsetTime = moment.unix(data.sys.sunset).format("HH:mm");
+                console.log("sunrise: " + sunriseTime);
+                console.log("sunset: " + sunsetTime);
+                console.log(now.diff(moment(data.sys.sunrise), "hours"));
+                $("#temp").append(tempConverted);
+            });
 
         }
         const categ = document.querySelector('#category');
-        $('.cat').css({position: "absolute", top: `${categ.getBoundingClientRect().top + categ.offsetHeight}px`, left: `${categ.getBoundingClientRect().left}px`, width: `${categ.offsetWidth}px`, zIndex: 999, backgroundColor: "white"})
-        $('#category').on('keyup', function(e){
+        $('.cat').css({ position: "absolute", top: `${categ.getBoundingClientRect().top + categ.offsetHeight}px`, left: `${categ.getBoundingClientRect().left}px`, width: `${categ.offsetWidth}px`, zIndex: 999, backgroundColor: "white" })
+        $('#category').on('keyup', function (e) {
             let self = $(this);
 
-            if ( e.keyCode == 40 || e.keyCode == 38 ) return;
-            
+            if (e.keyCode == 40 || e.keyCode == 38) return;
+
             $.ajax({
                 url: "http://api.eventful.com/json/categories/list?app_key=2DXR829kvdp9JrdB",
                 method: 'GET',
                 dataType: 'jsonp',
                 crossDomain: true
-            }).done(function(data){
+            }).done(function (data) {
                 $('.cat').empty();
                 data.category.forEach(cat => {
-                    if(cat.id.indexOf(self.val().trim()) !== -1){
-                        $('.cat').append($('<li>').text(cat.id).on('click', function(){
+                    if (cat.id.indexOf(self.val().trim()) !== -1) {
+                        $('.cat').append($('<li>').text(cat.id).on('click', function () {
                             $('#category').val(cat.id)
                             $('.cat').empty();
-                        }).on('mouseover', function(){
+                        }).on('mouseover', function () {
                             $('.cat li').removeClass('selected');
                             $(this).addClass('selected');
                             self.val($(this).text());
@@ -124,33 +154,33 @@
                 $listItems = $('.cat li');
             })
         })
-        .on('focus', function(){
-            if(!$(this).val()){
-                $('.cat').html($('<h5>').text("Start typing for available categories.."));
-            }
-        }).on('blur', function(){
-            $('.cat').empty();
-        })
-        $("button").on('click', (e)=>{
+            .on('focus', function () {
+                if (!$(this).val()) {
+                    $('.cat').html($('<h5>').text("Start typing for available categories.."));
+                }
+            }).on('blur', function () {
+                $('.cat').empty();
+            })
+        $("button").on('click', (e) => {
             e.preventDefault();
             show_alert($('#location').val().trim(), $('#category').val().trim());
         })
-        
 
-        $('#category').on('keydown', function(e){
-            
+
+        $('#category').on('keydown', function (e) {
+
             let key = e.keyCode,
                 $selected = $listItems.filter('.selected'),
                 $current;
 
-            if ( key != 40 && key != 38 ) return;
+            if (key != 40 && key != 38) return;
 
             $listItems.removeClass('selected');
 
-            if ( key == 40 ) // Down key
+            if (key == 40) // Down key
             {
-                if ( ! $selected.length || $selected.is('li:last-child') ) {
-                    
+                if (!$selected.length || $selected.is('li:last-child')) {
+
                     $current = $listItems.eq(0);
                     console.log($current);
                 }
@@ -158,9 +188,9 @@
                     $current = $selected.next();
                 }
             }
-            else if ( key == 38 ) // Up key
+            else if (key == 38) // Up key
             {
-                if ( ! $selected.length || $selected.is('li:first-child') ) {
+                if (!$selected.length || $selected.is('li:first-child')) {
                     $current = $listItems.last();
                 }
                 else {
@@ -169,14 +199,14 @@
             }
             $(this).val($current.text());
             $current.addClass('selected');
-            
-            });
+
+        });
 
         function initMap(lat, long, eventData) {
             var infoWindow = new google.maps.InfoWindow;
             var uluru = { lat: lat, lng: long };
             infoWindow.setPosition(uluru);
-            
+
             var map = new google.maps.Map(document.getElementById('map'), {
                 zoom: 15,
                 center: uluru
@@ -185,7 +215,7 @@
                 position: uluru,
                 map: map
             });
-            marker.addListener('click',function(e){
+            marker.addListener('click', function (e) {
                 infoWindow.open(map);
                 infoWindow.setContent(`
                     <div>
@@ -199,7 +229,7 @@
                 `);
             });
         }
-        
+
     </script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPUWhQgbEHM3-FjpHcb4yqDBjZ2dwfMs0&callback=initMap">
     </script>
