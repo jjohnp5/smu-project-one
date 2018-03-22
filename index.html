@@ -2,6 +2,7 @@
 <html>
 
 <head>
+    <link rel="stylesheet" href="./assets/css/jsCalendar.css">
     <style>
         #map {
             height: 400px;
@@ -24,6 +25,8 @@
         <ul class="cat"></ul>
         <button>Submit</button>
     </form>
+    <div id="my-calendar"></div>
+
     <h3>My Google Maps Demo</h3>
     <div id="map"></div>
     <div class="events">
@@ -32,10 +35,12 @@
 
             </div>
     </div>
+
     
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script type="text/javascript" src="http://api.eventful.com/js/api"></script>
+    <script src="./assets/js/jsCalendar.js"></script>
     <script>
         let $listItems;
         function show_alert(loc, cat) {
@@ -199,6 +204,11 @@
                 `);
             });
         }
+
+        var element = document.getElementById("my-calendar");
+        jsCalendar.new(element);
+        // jsCalendar.new(element, "30/01/2017");
+
         
     </script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPUWhQgbEHM3-FjpHcb4yqDBjZ2dwfMs0&callback=initMap">
