@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        #map {
+            height: 400px;
+            width: 100%;
+        }
+
+        ul {
+            list-style: none;
+            -webkit-padding-start: 0;
+        }
+
+        .selected {
+            background-color: grey;
+        }
+    </style>
+</head>
+
+<body>
+    
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="http://api.eventful.com/js/api"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/moment.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyAH9fTBxqIfgsYl57B4Rq60dBrY4_sIEIA",
+            authDomain: "my-project-1504633733231.firebaseapp.com",
+            databaseURL: "https://my-project-1504633733231.firebaseio.com",
+            projectId: "my-project-1504633733231",
+            storageBucket: "my-project-1504633733231.appspot.com",
+            messagingSenderId: "71446362369"
+        };
+        firebase.initializeApp(config);
+    </script>
+    <script src="https://cdn.firebase.com/libs/firebaseui/2.6.3/firebaseui.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.6.3/firebaseui.css" />
+    <script src="//unpkg.com/navigo@6"></script>
+    <script src="./assets/js/app.js"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPUWhQgbEHM3-FjpHcb4yqDBjZ2dwfMs0&callback=initMap">
+    </script>
+
+</body>
+
+</html>
