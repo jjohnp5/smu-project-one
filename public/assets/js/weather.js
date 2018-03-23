@@ -67,44 +67,63 @@ function getEventWeather(long, lat) {
     });
 }
 
+// Sets weather details based on weather code and current temp
 function setWeatherIcon(code, temp) {
     // var timeHTML = "<span>Current Time: " + moment().format("H:mm") + "</span><br/>";
     // var dateHTML = "<span>Current Date: " + moment().format("MM-DD-YYYY") + "</span><br/>";
     var imgSrc = "./assets/images/weather/";
     var tempHTML = "<span>Current Temp: " + temp + "&deg; </span>";
 
+
+    // Set icons for daytime weather code
     if (timeOfDay === "day") {
         switch (code) {
-            // Check for daytime thunderstorms
+
+            // Thunderstorms
             case (code > 199):
             case (code < 300):
                 icon.src = imgSrc + "day_tstorms.ico";
+                document.getElementById("weather").innerHTML = tempHTML;
+                document.getElementById("weather").appendChild(icon);
                 console.log("day thunderstorms");
                 break;
-            // Check for daytime light rain
+
+            // Light Rain
             case (code > 299):
             case (code < 400):
                 icon.src = imgSrc + "day_rain_light.ico";
+                document.getElementById("weather").innerHTML = tempHTML;
+                document.getElementById("weather").appendChild(icon);
                 console.log("day light rain");
                 break;
-            // Check for daytime heavy rain
+
+            // Heavy Rain
             case (code > 499):
             case (code < 600):
                 icon.src = imgSrc + "day_rain_heavy.ico";
+                document.getElementById("weather").innerHTML = tempHTML;
+                document.getElementById("weather").appendChild(icon);
                 console.log("day heavy rain");
                 break;
-            // Check for environmental conditions i.e. tornado, dust storms, etc.
+
+            // Environmental Conditions (i.e. tornado, dust storms, etc.)
             case (code > 699):
             case (code < 800):
                 icon.src = imgSrc + "cloudy_heavy.ico";
+                document.getElementById("weather").innerHTML = tempHTML;
+                document.getElementById("weather").appendChild(icon);
                 console.log("day clouds");
                 break;
-            // Check for daytime clear skies
+
+            // Clear Skies
             case (code = 800):
                 icon.src = imgSrc + "day_clear.ico";
+                document.getElementById("weather").innerHTML = tempHTML;
+                document.getElementById("weather").appendChild(icon);
                 console.log("day clear");
                 break;
-            // Check for daytime light clouds
+
+            // Light Clouds
             case (code = 801):
             case (code = 803):
             case (code = 804):
@@ -113,61 +132,86 @@ function setWeatherIcon(code, temp) {
                 document.getElementById("weather").appendChild(icon);
                 console.log("day light clouds");
                 break;
-            // Check for daytime heavy clouds
+
+            // Heavy Clouds
             case (code = 802):
                 icon.src = imgSrc + "day_cloudy_heavy.ico";
+                document.getElementById("weather").innerHTML = tempHTML;
+                document.getElementById("weather").appendChild(icon);
                 console.log("day heavy clouds");
                 break;
             default:
                 break;
         }
+    }
 
-        if (timeOfDay === "night") {
-            switch (code) {
-                // Check for nighttime thunderstorms
-                case (code > 199):
-                case (code < 300):
-                    icon.src = imgSrc + "night_tstorms.ico";
-                    console.log("night thunderstorms");
-                    break;
-                // Check for nighttime light rain
-                case (code > 299):
-                case (code < 400):
-                    icon.src = imgSrc + "night_rain_light.ico";
-                    console.log("night light rain");
-                    break;
-                // Check for nighttime heavy rain
-                case (code > 499):
-                case (code < 600):
-                    icon.src = imgSrc + "night_rain_heavy.ico";
-                    console.log("night heavy rain");
-                    break;
-                // Check for environmental conditions i.e. tornado, dust storms, etc.
-                case (code > 699):
-                case (code < 800):
-                    icon.src = imgSrc + "cloudy_heavy.ico";
-                    console.log("night clouds");
-                    break;
-                // Check for nighttime clear skies
-                case (code = 800):
-                    icon.src = imgSrc + "night_clear.ico";
-                    console.log("night clear");
-                    break;
-                // Check for nighttime light clouds
-                case (code = 801):
-                case (code = 803):
-                case (code = 804):
-                    icon.src = imgSrc + "night_cloudy_light.ico";
-                    console.log("night light clouds");
-                    break;
-                // Check for nighttime heavy clouds
-                case (code = 802):
-                    icon.src = imgSrc + "night_cloudy_heavy.ico";
-                    console.log("night heavy clouds");
-                    break;
-                default:
-                    break;
-            }
+    // Set icon for nighttime weather code
+    else {
+        switch (code) {
+
+            // Thunderstorms
+            case (code > 199):
+            case (code < 300):
+                icon.src = imgSrc + "night_tstorms.ico";
+                document.getElementById("weather").innerHTML = tempHTML;
+                document.getElementById("weather").appendChild(icon);
+                console.log("night thunderstorms");
+                break;
+
+            // Light Rain
+            case (code > 299):
+            case (code < 400):
+                icon.src = imgSrc + "night_rain_light.ico";
+                document.getElementById("weather").innerHTML = tempHTML;
+                document.getElementById("weather").appendChild(icon);
+                console.log("night light rain");
+                break;
+
+            // Heavy Rain
+            case (code > 499):
+            case (code < 600):
+                icon.src = imgSrc + "night_rain_heavy.ico";
+                document.getElementById("weather").innerHTML = tempHTML;
+                document.getElementById("weather").appendChild(icon);
+                console.log("night heavy rain");
+                break;
+
+            // Environmental Conditions (i.e. tornado, dust storms, etc.)
+            case (code > 699):
+            case (code < 800):
+                icon.src = imgSrc + "cloudy_heavy.ico";
+                document.getElementById("weather").innerHTML = tempHTML;
+                document.getElementById("weather").appendChild(icon);
+                console.log("night clouds");
+                break;
+
+            // Clear Skies
+            case (code = 800):
+                icon.src = imgSrc + "night_clear.ico";
+                document.getElementById("weather").innerHTML = tempHTML;
+                document.getElementById("weather").appendChild(icon);
+                console.log("night clear");
+                break;
+
+            // Light Clouds
+            case (code = 801):
+            case (code = 803):
+            case (code = 804):
+                icon.src = imgSrc + "night_cloudy_light.ico";
+                document.getElementById("weather").innerHTML = tempHTML;
+                document.getElementById("weather").appendChild(icon);
+                console.log("night light clouds");
+                break;
+
+            // Heavy Clouds
+            case (code = 802):
+                icon.src = imgSrc + "night_cloudy_heavy.ico";
+                document.getElementById("weather").innerHTML = tempHTML;
+                document.getElementById("weather").appendChild(icon);
+                console.log("night heavy clouds");
+                break;
+            default:
+                break;
         }
     }
 }
