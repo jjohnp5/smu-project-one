@@ -12,18 +12,17 @@ var weatherCode;
 var icon = new Image(90, 90);
 
 var weatherAPI = "44df1c912088b9675614938b52bcbd0e";
-
-console.log(currentDate);
-console.log(nextWeek);
-console.log(twoWeeks);
+// console.log(currentDate);
+// console.log(nextWeek);
+// console.log(twoWeeks);
 
 
 // Get weather details
 function getEventWeather(long, lat) {
     var latitude = lat;
     var longitude = long;
-    console.log("Longitude: " + long);
-    console.log("Latitude: " + lat);
+    // console.log("Longitude: " + long);
+    // console.log("Latitude: " + lat);
 
     // Create weather object to use for API calls
     var weatherObj = {
@@ -59,11 +58,11 @@ function getEventWeather(long, lat) {
         // Set the icons based on weather code
         setWeatherIcon(weatherCode, tempConverted);
 
-        console.log("sunrise: " + sunriseTime);
-        console.log("sunset: " + sunsetTime);
-        console.log("Current temp: " + tempConverted);
-        console.log("Weather code: " + weatherCode);
-        console.log("Time of day: " + timeOfDay);
+        // console.log("sunrise: " + sunriseTime);
+        // console.log("sunset: " + sunsetTime);
+        // console.log("Current temp: " + tempConverted);
+        // console.log("Weather code: " + weatherCode);
+        // console.log("Time of day: " + timeOfDay);
     });
 }
 
@@ -85,7 +84,7 @@ function setWeatherIcon(code, temp) {
                 icon.src = imgSrc + "day_tstorms.ico";
                 document.getElementById("weather").innerHTML = tempHTML;
                 document.getElementById("weather").appendChild(icon);
-                console.log("day thunderstorms");
+                // console.log("day thunderstorms");
                 break;
 
             // Light Rain
@@ -94,7 +93,7 @@ function setWeatherIcon(code, temp) {
                 icon.src = imgSrc + "day_rain_light.ico";
                 document.getElementById("weather").innerHTML = tempHTML;
                 document.getElementById("weather").appendChild(icon);
-                console.log("day light rain");
+                // console.log("day light rain");
                 break;
 
             // Heavy Rain
@@ -103,7 +102,7 @@ function setWeatherIcon(code, temp) {
                 icon.src = imgSrc + "day_rain_heavy.ico";
                 document.getElementById("weather").innerHTML = tempHTML;
                 document.getElementById("weather").appendChild(icon);
-                console.log("day heavy rain");
+                // console.log("day heavy rain");
                 break;
 
             // Environmental Conditions (i.e. tornado, dust storms, etc.)
@@ -112,7 +111,7 @@ function setWeatherIcon(code, temp) {
                 icon.src = imgSrc + "cloudy_heavy.ico";
                 document.getElementById("weather").innerHTML = tempHTML;
                 document.getElementById("weather").appendChild(icon);
-                console.log("day clouds");
+                // console.log("day clouds");
                 break;
 
             // Clear Skies
@@ -120,7 +119,7 @@ function setWeatherIcon(code, temp) {
                 icon.src = imgSrc + "day_clear.ico";
                 document.getElementById("weather").innerHTML = tempHTML;
                 document.getElementById("weather").appendChild(icon);
-                console.log("day clear");
+                // console.log("day clear");
                 break;
 
             // Light Clouds
@@ -130,7 +129,7 @@ function setWeatherIcon(code, temp) {
                 icon.src = "./assets/images/weather/cloudy_heavy.ico";
                 document.getElementById("weather").innerHTML = tempHTML;
                 document.getElementById("weather").appendChild(icon);
-                console.log("day light clouds");
+                // console.log("day light clouds");
                 break;
 
             // Heavy Clouds
@@ -138,9 +137,10 @@ function setWeatherIcon(code, temp) {
                 icon.src = imgSrc + "day_cloudy_heavy.ico";
                 document.getElementById("weather").innerHTML = tempHTML;
                 document.getElementById("weather").appendChild(icon);
-                console.log("day heavy clouds");
+                // console.log("day heavy clouds");
                 break;
             default:
+                console.log("Unable to get weather code.");
                 break;
         }
     }
@@ -155,7 +155,7 @@ function setWeatherIcon(code, temp) {
                 icon.src = imgSrc + "night_tstorms.ico";
                 document.getElementById("weather").innerHTML = tempHTML;
                 document.getElementById("weather").appendChild(icon);
-                console.log("night thunderstorms");
+                // console.log("night thunderstorms");
                 break;
 
             // Light Rain
@@ -164,7 +164,7 @@ function setWeatherIcon(code, temp) {
                 icon.src = imgSrc + "night_rain_light.ico";
                 document.getElementById("weather").innerHTML = tempHTML;
                 document.getElementById("weather").appendChild(icon);
-                console.log("night light rain");
+                // console.log("night light rain");
                 break;
 
             // Heavy Rain
@@ -173,7 +173,7 @@ function setWeatherIcon(code, temp) {
                 icon.src = imgSrc + "night_rain_heavy.ico";
                 document.getElementById("weather").innerHTML = tempHTML;
                 document.getElementById("weather").appendChild(icon);
-                console.log("night heavy rain");
+                // console.log("night heavy rain");
                 break;
 
             // Environmental Conditions (i.e. tornado, dust storms, etc.)
@@ -182,7 +182,7 @@ function setWeatherIcon(code, temp) {
                 icon.src = imgSrc + "cloudy_heavy.ico";
                 document.getElementById("weather").innerHTML = tempHTML;
                 document.getElementById("weather").appendChild(icon);
-                console.log("night clouds");
+                // console.log("night clouds");
                 break;
 
             // Clear Skies
@@ -190,7 +190,7 @@ function setWeatherIcon(code, temp) {
                 icon.src = imgSrc + "night_clear.ico";
                 document.getElementById("weather").innerHTML = tempHTML;
                 document.getElementById("weather").appendChild(icon);
-                console.log("night clear");
+                // console.log("night clear");
                 break;
 
             // Light Clouds
@@ -200,7 +200,7 @@ function setWeatherIcon(code, temp) {
                 icon.src = imgSrc + "night_cloudy_light.ico";
                 document.getElementById("weather").innerHTML = tempHTML;
                 document.getElementById("weather").appendChild(icon);
-                console.log("night light clouds");
+                // console.log("night light clouds");
                 break;
 
             // Heavy Clouds
@@ -208,9 +208,10 @@ function setWeatherIcon(code, temp) {
                 icon.src = imgSrc + "night_cloudy_heavy.ico";
                 document.getElementById("weather").innerHTML = tempHTML;
                 document.getElementById("weather").appendChild(icon);
-                console.log("night heavy clouds");
+                // console.log("night heavy clouds");
                 break;
             default:
+                console.log("Unable to get weather code.");
                 break;
         }
     }
