@@ -1,35 +1,5 @@
 ;(function(){
-    var root = "http://localhost:5000";
-    var useHash = true; // Defaults to: false
-    var hash = '#!'; // Defaults to: '#'
-    var router = new Navigo(root, useHash, hash);
-
-    router
-    .on('/', function () {
-        $('body').append($(`
-        <form action="">
-        <label for="location">Location:
-            <input type="text" id="location">
-        </label>
-        <label for="category">Category:
-            <input type="text" id="category">
-        </label>
-        <ul class="cat"></ul>
-        <button>Submit</button>
-    </form>
-    <div class="authentication"></div>
-    <h3>My Google Maps Demo</h3>
-    <div id="map"></div>
-    <div class="events">
-        <h3>Events</h3>
-        <span id="temp"></span>
-        <div class="event-list">
-
-        </div>
-    </div>
-        `));
-    })
-    .resolve();
+  
     let user = "";
     let db = firebase.database();
     let provider = new firebase.auth.GoogleAuthProvider();
@@ -66,11 +36,12 @@
     firebase.auth().onAuthStateChanged(function (user) {
         $('.authentication').empty();
         if (user) {
-            $('.authentication').append($('<button class="sign-out">').text("Sign Out"));
+            $('.authentication').append($('<button class="sign-out btn btn-outline-danger my-2 my-sm-0">').text("Sign Out"));
             user = user;
+            console.log(user);
 
         } else {
-            $('.authentication').append($('<button class="google-signin">').text("Sign in with Google"));
+            $('.authentication').append($('<button class="google-signin btn btn-outline-primary my-2 my-sm-0">').text("Sign in with Google"));
         }
     })
     $(document).on('click', '.sign-out', function () {
@@ -160,10 +131,9 @@
     }
     const categ = document.querySelector('#category');
     $('.cat').css({ position: "absolute", top: `${categ.getBoundingClientRect().top + categ.offsetHeight}px`, left: `${categ.getBoundingClientRect().left}px`, width: `${categ.offsetWidth}px`, zIndex: 999, backgroundColor: "white" })
-    $('#category').on('keyup', function (e) {
+    $('#category').on('click', function (e) {
         let self = $(this);
 
-        if (e.keyCode == 40 || e.keyCode == 38) return;
 
         $.ajax({
             url: "https://api.eventful.com/json/categories/list?app_key=2DXR829kvdp9JrdB",
@@ -171,70 +141,22 @@
             dataType: 'jsonp',
             crossDomain: true
         }).done(function (data) {
-            $('.cat').empty();
             data.category.forEach(cat => {
-                if (cat.id.indexOf(self.val().trim()) !== -1) {
-                    $('.cat').append($('<li>').text(cat.id).on('click', function () {
+                    self.append($('<option>').text(cat.id).on('click', function () {
                         $('#category').val(cat.id)
-                        $('.cat').empty();
-                    }).on('mouseover', function () {
-                        $('.cat li').removeClass('selected');
-                        $(this).addClass('selected');
-                        self.val($(this).text());
-                    }));
-                }
+                    })
+
+                );
+
             })
-            $listItems = $('.cat li');
+            $listItems = $('#category option');
         })
     })
-        .on('focus', function () {
-            if (!$(this).val()) {
-                $('.cat').html($('<h5>').text("Start typing for available categories.."));
-            }
-        }).on('blur', function () {
-            $('.cat').empty();
-        })
+
     $("button").on('click', (e) => {
         e.preventDefault();
         show_alert($('#location').val().trim(), $('#category').val().trim());
     })
-
-
-    $('#category').on('keydown', function (e) {
-
-        let key = e.keyCode,
-            $selected = $listItems.filter('.selected'),
-            $current;
-
-        if (key != 40 && key != 38) return;
-
-        $listItems.removeClass('selected');
-
-        if (key == 40) // Down key
-        {
-            if (!$selected.length || $selected.is('li:last-child')) {
-
-                $current = $listItems.eq(0);
-                console.log($current);
-            }
-            else {
-                $current = $selected.next();
-            }
-        }
-        else if (key == 38) // Up key
-        {
-            if (!$selected.length || $selected.is('li:first-child')) {
-                $current = $listItems.last();
-            }
-            else {
-                $current = $selected.prev();
-            }
-        }
-        $(this).val($current.text());
-        $current.addClass('selected');
-
-    });
-
     function initMap(lat, long, eventData) {
         var infoWindow = new google.maps.InfoWindow;
         var uluru = { lat: lat, lng: long };
