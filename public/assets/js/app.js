@@ -1,84 +1,151 @@
-;(function(){
-    $('#signing-out-modal').addClass('display');
+; (function () {
+    $('.selected-event').hide();
+    let user = "";
     let db = firebase.database();
-    console.log(firebase.User.uid);
     let provider = new firebase.auth.GoogleAuthProvider();
+    let selectedEventRender;
     $(document).on('click', '.google-signin', function () {
-        let self = this;
-        firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
-            .then(function () {
+        firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION).then(function () {
+            return firebase.auth().signInWithPopup(provider);
 
-                    return firebase.auth().signInWithPopup(provider);
-                    // .then(function (result) {
-                    // This gives you a Google Access Token. You can use it to access the Google API.
-                    // var token = result.credential.accessToken;
-                    // The signed-in user info.
-                    // var user = result.user;
-                    // ...
-                    // console.log(user);
-                    // if (user) {
-                    //     $(self).hide();
-                    // }
+            // })
+            // ..then(function(result) {
+            // This gives you a Google Access Token. You can use it to access the Google API.
+            //   var token = result.credential.accessToken;
+            // The signed-in user info.
+            //   var user = result.user;
+            // ...
+            //   console.log(user);
 
-                    //   $('.event-list').append($('<button>').text("Auth").on('click', function(e){
-                    //       db.ref(`${user.uid}/events`).push("event");
-                    //   }))
-                    // db.ref(`${user.uid}/events`).on('value', function (d) {
-                    //     console.log(d.val());
-                    // })
-                // });
-            }).catch(function (error) {
-                // Handle Errors here.
-                var errorCode = error.code;
-                var errorMessage = error.message;
-                // The email of the user's account used.
-                var email = error.email;
-                // The firebase.auth.AuthCredential type that was used.
-                var credential = error.credential;
-                // ...
-            });
-
-
-
+            //   $('.event-list').append($('<button>').text("Auth").on('click', function(e){
+            //       db.ref(`${user.uid}/events`).push("event");
+            //   }))
+            //   db.ref(`${user.uid}/events`).on('value', function(d){
+            //       console.log(d.val());
+            //   })
+        }).catch(function (error) {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            // The email of the user's account used.
+            var email = error.email;
+            // The firebase.auth.AuthCredential type that was used.
+            var credential = error.credential;
+            // ...
+        });
     });
-    firebase.auth().onAuthStateChanged(function(user){
-        $('.signer').empty();
-        if(user){
-            $('.signer').append($('<button class="sign-out">').text('Sign Out'));
-              $('.event-list').append($('<button>').text("Auth").on('click', function(e){
-                          db.ref(`${user.uid}/events`).push("event");
-                      }))
-                        db.ref(`${user.uid}/events`).on('value', function (d) {
-                        console.log(d.val());
+    firebase.auth().onAuthStateChanged(function (user) {
+        $('.authentication').empty();
+        $(document).off('click', '.add-to-event');
+        $('.selected-event').empty().slideUp(500);
+    
+        if (user) {
+            $('.authentication').append($('<button class="sign-out btn btn-outline-danger my-2 my-sm-0">').text("Sign Out"));
+            user = user.uid;
+            console.log(user);
+            let currentEvent = ""
+            $(document).on('click', '.add-to-event', function () {
+                currentEvent = $(this)
+                if ($(this).data('action') === "add") {
+                    db.ref(`/${user}/events`).push($(this).data('id'));
+                    $(this).data('action', 'delete').html(`&times; Remove from Events`).removeClass('btn-success').addClass('btn-danger');
+
+                } else {
+                    db.ref(`/${user}/events`).once('value').then(function (d) {
+                        d.forEach(f =>{
+                            let current = f.val();
+                            if(current === currentEvent.data('id')){
+                                currentEvent.data('action', "add").html(`&#43; Add to My Events`).removeClass('btn-danger').addClass('btn-success');
+                                db.ref(`/${user}/events/${f.key}`).remove();
+
+                            }
+                        })
                     })
-        }
-        else{
-            $('.signer').append($('<button class="google-signin">').text('Google Sign In'));
-        }
-    })
-    $(document).on('click','.sign-out', ()=>{
-        // let sOut = gapi.auth2.getAuthInstance();
-        // sOut.signout().then(function(){
-            console.log('button hit');
-            $('#signing-out-modal').removeClass('display');
-            setTimeout(function(){
-                firebase.auth().signOut().then(()=>{
-                $('#signing-out-modal').addClass('display');
-                console.log('sign out done');
+                }
             })
-        },3000);
-        // })
+            selectedEventRender = function(eventInfo) {
+                let eventDiv = $('.selected-event');
+                eventDiv.empty();
+                eventDiv.append($('<div class="row loader">').append($('<img class="img-responsive">').attr('src', './assets/images/Loading_icon.gif')));
+                eventDiv.slideDown(500)
+                let row = $('<div class="row">');
+                let col_1 = $('<div class="col-sm-4 img-cont">');
+                let col_2 = $('<div class="col-sm-4">');
+                col_1.append($('<img class="img-fluid">').attr('src', eventInfo.image));
+                let title = $('<h5>').text(eventInfo.title);
+                let venue = $('<p>').text(eventInfo.venue);
+                let address = $('<p>').text(eventInfo.address);
+                let description = $('<p>').text(eventInfo.description);
+                let addToEvents = "";
+                let getTickets = $('<button class="btn btn-primary add-to-event">').text("Get Tickets").data({ id: eventInfo.id, event: eventInfo.directLink});
+
+                console.log(firebase.auth().currentUser);
+                    db.ref(`/${firebase.auth().currentUser.uid}/events`).once('value', function (d) {
+                        d.forEach(e => {
+                           let f = e.val();
+                            if (f === eventInfo.id) {
+                                addToEvents = $('<button class="btn btn-danger add-to-event">').html(`&times; Remove from Events`).data({ id: eventInfo.id, event: eventInfo.directLink, action: "delete" });
+                            }
+                        })
+                        if (!addToEvents) {
+                            addToEvents = $('<button class="btn btn-success add-to-event">').html(`&#43; Add to My Events`).data({ id: eventInfo.id, event: eventInfo.directLink, action: "add" });
+                        }
+                        col_2.append(title, venue, address, description, getTickets,addToEvents);
+                        setTimeout(function () {
+                        eventDiv.empty();
+                        row.append(col_1, col_2);
+                        eventDiv.append(row);
+                        }, 1000)
+                        
+                    })
+                    
+                }
+                
+            
+        } else {
+            $('.authentication').append($('<button class="google-signin btn btn-outline-primary my-2 my-sm-0">').text("Sign in with Google"));
+            $(document).on('click', '.add-to-event', function () {
+
+                window.open($(this).data('event'));
+            })
+            selectedEventRender = function(eventInfo) {
+                let eventDiv = $('.selected-event');
+                eventDiv.empty();
+                eventDiv.append($('<div class="row loader">').append($('<img class="img-responsive">').attr('src', './assets/images/Loading_icon.gif')));
+                eventDiv.slideDown(500)
+                let row = $('<div class="row">');
+                let col_1 = $('<div class="col-sm-4 img-cont">');
+                let col_2 = $('<div class="col-sm-4">');
+                col_1.append($('<img class="img-fluid">').attr('src', eventInfo.image));
+                let title = $('<h5>').text(eventInfo.title);
+                let venue = $('<p>').text(eventInfo.venue);
+                let address = $('<p>').text(eventInfo.address);
+                let description = $('<p>').text(eventInfo.description);
+                let addToEvents = $('<button class="btn btn-primary add-to-event">').text("Get Tickets").data({ id: eventInfo.id, event: eventInfo.directLink});
+                col_2.append(title, venue, address, description, addToEvents);
+                setTimeout(function () {
+                eventDiv.empty();
+                row.append(col_1, col_2);
+                eventDiv.append(row);
+                }, 1000)
+                }
+        }
     })
+    $(document).on('click', '.sign-out', function () {
+        firebase.auth().signOut();
+    })
+
 
     let $listItems;
     function show_alert(loc, cat) {
-        let lat = "";
-        let long = "";
-        let weatherURL = "https://api.openweathermap.org/data/2.5/weather?q=";
-        let weatherAPI = "44df1c912088b9675614938b52bcbd0e";
-        let now = moment();
+        $('#loading').removeClass('display');
+        var lat = "";
+        var long = "";
+        var weatherURL = "https://api.openweathermap.org/data/2.5/weather?q=";
+        var weatherAPI = "44df1c912088b9675614938b52bcbd0e";
+        var now = moment();
 
-        let oArgs = {
+        var oArgs = {
             method: 'GET',
             url: "https://api.eventful.com/json/events/search",
             data: {
@@ -123,41 +190,65 @@
                 }
 
                 initMap(lat, long, eventData);
-                $('.event-list').empty();
+                if ($('.carousel').flickity()) {
+                    $('.carousel').flickity('destroy');
+                }
+                $('.carousel').empty();
                 oData.events.event.forEach((event) => {
-                    content = $('<div class="event">');
-                    title = $('<h4>').text(event.title);
-                    venue_name = $('<p>').text(event.venue_name);
-                    venue_address = $('<p>').text(event.venue_address).on('click', (e) => {
-                        initMap(parseFloat(event.latitude), parseFloat(event.longitude), { title: event.title, venue_name: event.venue_name, venue_address: event.venue_address, city_name: event.city_name })
+                    let eventData = {
+                        lat: event.latitude,
+                        long: event.longitude,
+                        title: event.title,
+                        address: event.venue_address,
+                        venue: event.venue_name,
+                        description: event.description,
+                        city: event.city_name,
+                        id: event.id,
+                        directLink: event.url,
+                        performers: event.performers,
+                        image: event.image ? event.image.medium.url : "./assets/images/out&about.jpg"
+
+
+                    }
+                    let wrapper = $('<div class="carousel-cell">');
+                    let card = $('<div class="card">');
+                    let cardImg = $('<img class="img-responsive card-img-top">').attr('src', event.image ? event.image.medium.url : "./assets/images/out&about.jpg");
+                    let cardBody = $('<div class="card-body">');
+                    let title = $('<h6>').text(event.title);
+                    let venue_name = $('<p>').text(event.venue_name);
+                    let venue_address = $('<p>').text(event.venue_address).on('click', (e) => {
+                        initMap(parseFloat(eventData.lat), parseFloat(eventData.long), { title: event.title, venue_name: event.venue_name, venue_address: event.venue_address, city_name: event.city_name })
                     });
-                    city_name = $('<p>').text(event.city_name);
-                    content.append(title, venue_name, venue_address, city_name);
-                    $('.event-list').append(content);
+                    let city_name = $('<p>').text(event.city_name);
+                    let moreInfo = $('<button class="btn btn-primary">').text("More info").on('click', () => {
+                        selectedEventRender(eventData);
+                    })
+                    cardBody.append(title, venue_name, venue_address, city_name, moreInfo);
+                    card.append(cardImg, cardBody);
+                    wrapper.append(card);
+                    $('.carousel').append(wrapper);
                 })
-                
-
+                $('.carousel').flickity({ autoPlay: true, adaptiveHeight: true, setGallerySize: false });
+                $('#loading').addClass('display');
             })
-            // Weather AJAX Call
-            $.ajax(weatherObj).then(data => {
-                    var tempConverted = parseInt((data.main.temp * (9 / 5) - 459.67));
-                    var sunriseTime = moment.unix(data.sys.sunrise).format("HH:mm");
-                    var sunsetTime = moment.unix(data.sys.sunset).format("HH:mm");
-                    console.log("sunrise: " + sunriseTime);
-                    console.log("sunset: " + sunsetTime);
-                    console.log(now.diff(moment(data.sys.sunrise), "hours"));
-                    $("#temp").append(tempConverted);
-                });
 
+        // Weather AJAX Call
+        $.ajax(weatherObj).then(data => {
+            var tempConverted = parseInt((data.main.temp * (9 / 5) - 459.67));
+            var sunriseTime = moment.unix(data.sys.sunrise).format("HH:mm");
+            var sunsetTime = moment.unix(data.sys.sunset).format("HH:mm");
+            console.log("sunrise: " + sunriseTime);
+            console.log("sunset: " + sunsetTime);
+            console.log(now.diff(moment(data.sys.sunrise), "hours"));
+            $("#temp").append(tempConverted);
+        });
         
 
     }
     const categ = document.querySelector('#category');
-    $('.cat').css({ position: "absolute", top: `${categ.getBoundingClientRect().top + categ.offsetHeight}px`, left: `${categ.getBoundingClientRect().left}px`, width: `${categ.offsetWidth}px`, zIndex: 999, backgroundColor: "white" })
-    $('#category').on('keyup', function (e) {
-        let self = $(this);
+    $('#location').on('click', function (e) {
+        let self = $('#category');
 
-        if (e.keyCode == 40 || e.keyCode == 38) return;
 
         $.ajax({
             url: "https://api.eventful.com/json/categories/list?app_key=2DXR829kvdp9JrdB",
@@ -165,80 +256,32 @@
             dataType: 'jsonp',
             crossDomain: true
         }).done(function (data) {
-            $('.cat').empty();
             data.category.forEach(cat => {
-                if (cat.id.indexOf(self.val().trim()) !== -1) {
-                    $('.cat').append($('<li>').text(cat.id).on('click', function () {
-                        $('#category').val(cat.id)
-                        $('.cat').empty();
-                    }).on('mouseover', function () {
-                        $('.cat li').removeClass('selected');
-                        $(this).addClass('selected');
-                        self.val($(this).text());
-                    }));
-                }
+                self.append($('<option>').text(cat.id).on('click', function () {
+                    $('#category').val(cat.id)
+                })
+
+                );
+
             })
-            $listItems = $('.cat li');
+            $listItems = $('#category option');
         })
     })
-        .on('focus', function () {
-            if (!$(this).val()) {
-                $('.cat').html($('<h5>').text("Start typing for available categories.."));
-            }
-        }).on('blur', function () {
-            $('.cat').empty();
-        })
+
     $("button").on('click', (e) => {
         e.preventDefault();
         show_alert($('#location').val().trim(), $('#category').val().trim());
     })
-
-
-    $('#category').on('keydown', function (e) {
-
-        let key = e.keyCode,
-            $selected = $listItems.filter('.selected'),
-            $current;
-
-        if (key != 40 && key != 38) return;
-
-        $listItems.removeClass('selected');
-
-        if (key == 40) // Down key
-        {
-            if (!$selected.length || $selected.is('li:last-child')) {
-
-                $current = $listItems.eq(0);
-                console.log($current);
-            }
-            else {
-                $current = $selected.next();
-            }
-        }
-        else if (key == 38) // Up key
-        {
-            if (!$selected.length || $selected.is('li:first-child')) {
-                $current = $listItems.last();
-            }
-            else {
-                $current = $selected.prev();
-            }
-        }
-        $(this).val($current.text());
-        $current.addClass('selected');
-
-    });
-
     function initMap(lat, long, eventData) {
-        let infoWindow = new google.maps.InfoWindow;
-        let uluru = { lat: lat, lng: long };
+        var infoWindow = new google.maps.InfoWindow;
+        var uluru = { lat: lat, lng: long };
         infoWindow.setPosition(uluru);
 
-        let map = new google.maps.Map(document.getElementById('map'), {
+        var map = new google.maps.Map(document.getElementById('map'), {
             zoom: 15,
             center: uluru
         });
-        let marker = new google.maps.Marker({
+        var marker = new google.maps.Marker({
             position: uluru,
             map: map
         });
@@ -256,5 +299,8 @@
             `);
         });
     }
+    
 
-})();
+
+
+})()
