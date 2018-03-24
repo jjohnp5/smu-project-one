@@ -51,7 +51,7 @@
                 $(`<button class="btn btn-outline-info logged-in-btn" data-toggle="popover">`).html(`${user.displayName} <i class="material-icons">keyboard_arrow_down</i>`)
             ).show();
 <<<<<<< HEAD
-            
+
 >>>>>>> 8a03a6dc73ffdd5ca88772caa741acff087b2f9b
 =======
 
@@ -269,7 +269,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 =======
-                    
+
                 }else{
                 lat = parseFloat(oData.events.event[0].latitude);
                 long = parseFloat(oData.events.event[0].longitude)
@@ -481,44 +481,44 @@
     $("#expand").hide();
     $(".myEvents").hide();
     $(".mainEvent").hide();
-// })
+    // })
 
-$("#location").focus(function () {
-    $(".searchAdvanced").show();
-})
-
-
-
-var searchLocation;
-
-$("#search").click(function () {
-    event.preventDefault();
-
-    searchLocation = $("#location").val().trim().toUpperCase();
-    if (searchLocation === "") {
-        $("#location").attr("placeholder", "Please enter a location.");
-        $("#location").css("background-color", "lightyellow");
-    }
-    else {
-        $(".searchContainer").hide();
-        $("#expand").show();
-        $("#location").css("background-color", "white");
-        $("#eventHeading").html("Events in " + searchLocation);
-    }
-})
-
-$("#expand").click(function () {
-    $(this).hide();
-    $(".searchContainer").show();
-    $(".searchAdvanced").hide();
-})
-
-$(".btn-main-event").click(function () {
-    $(".searchAdvanced").hide();
-    $(".mainEvent").show();
-    $("#eventHeading").html("Other Events");
+    $("#location").focus(function () {
+        $(".searchAdvanced").show();
+    })
 
 
 
-})
+    var searchLocation;
+
+    $("#search").click(function () {
+        event.preventDefault();
+
+        searchLocation = $("#location").val().trim().toUpperCase();
+        if (searchLocation === "") {
+            $("#location").attr("placeholder", "Please enter a location.");
+            $("#location").css("background-color", "lightyellow");
+        }
+        else {
+            $(".searchContainer").hide();
+            $("#expand").show();
+            $("#location").css("background-color", "white");
+            $("#eventHeading").html("Events in " + searchLocation);
+        }
+    })
+
+    $("#expand").click(function () {
+        $(this).hide();
+        $(".searchContainer").show();
+        $(".searchAdvanced").hide();
+    })
+
+    $(".btn-main-event").click(function () {
+        $(".searchAdvanced").hide();
+        $(".mainEvent").show();
+        $("#eventHeading").html("Other Events");
+
+
+
+    })
 })()
