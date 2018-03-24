@@ -303,6 +303,7 @@
                 $('#location').popover({ content: 'Location not found. Please try again.' });
                 $('#location').popover('show');
             })
+<<<<<<< HEAD
 
         // Weather AJAX Call
         $.ajax(weatherObj).then(data => {
@@ -316,6 +317,9 @@
         });
 
 
+=======
+
+>>>>>>> e033222e9f615525ef09650b91bac163342a0542
     }
     const categ = document.querySelector('#category');
     $('#location').on('click', function (e) {
@@ -372,7 +376,10 @@
             `);
         });
     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> e033222e9f615525ef09650b91bac163342a0542
 
 
 
