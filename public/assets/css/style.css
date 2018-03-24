@@ -6,7 +6,24 @@
 .btn-primary {
     background-color: #5A71FD;
 }
-
+/* NAV */
+.nav-links{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.nav-links .logged-in-only{
+    color: white;
+}
+.logged-in-popup{
+    background: gainsboro;
+    min-width: 150px;
+    padding: 5px;
+    z-index: 10;
+}
+.material-icons{
+    font-size: 1.5em;
+}
 .searchContainer {
     background-color: #5a71FD
 }
@@ -188,15 +205,19 @@ label {
 /* external css: flickity.css */
 
 * { box-sizing: border-box; }
-
+.eventCarousel{
+    padding-bottom: 50px;
+}
 
 .carousel {
   background: #FAFAFA;
+  height: 500px
+
 }
 
 .carousel-cell {
-  min-width: 30%;
-  min-height: 300px;
+  width: 25%;
+  height: 400px;
   margin-right: 10px;
   background: white;
 }
@@ -215,4 +236,76 @@ label {
 .carousel-cell-image.flickity-lazyloaded,
 .carousel-cell-image.flickity-lazyerror {
   opacity: 1;
+}
+.card-img-top{
+    width: 75%;
+    max-height: 100px;
+    max-width: 100px;
+    margin: 0 auto;
+}
+.card-body p{
+    font-size: .8em;
+}
+.flickity-viewport{
+    transition: height 0.2s;
+}
+.selected-event{
+    min-height: 300px;
+}
+.selected-event img{
+    margin: 0 auto;
+}
+.loader{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.img-cont{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+/* .img-cont.img-responsive{
+    max-width: 100%;
+} */
+.display{
+    display: none;
+}
+.popover-container{
+    text-align: center;
+}
+.popover-container button{
+    margin: 10px;
+}
+.loading{
+    position: absolute;
+    background: white;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+.loading.display{
+    display: none;
+}
+.add-to-event{
+    margin-left: 10px;
+}
+/* #map{
+    margin-top: 50px;
+} */
+/* RESPONSIVE MEDIA QUERIES */
+@media screen and (max-width: 600px){
+    .carousel-cell{
+        width: 100%;
+    }
+}
+@media screen and (max-width: 900px){
+    .carousel-cell{
+        width: 50%;
+    }
 }
