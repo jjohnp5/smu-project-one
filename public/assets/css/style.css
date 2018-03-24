@@ -271,6 +271,10 @@ label {
 .display{
     display: none;
 }
+.description{
+    padding: 15px;
+    margin: 10px 0 10px 15px;
+}
 .popover-container{
     text-align: center;
 }
