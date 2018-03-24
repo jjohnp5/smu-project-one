@@ -43,7 +43,6 @@
             $('.authentication').hide();
             // $('.logged-in-popup').hide();
             // $('.logged-in-only').off();
-
             $('.logged-in-only').append(
                 $(`<button class="btn btn-outline-info logged-in-btn" data-toggle="popover">`).html(`${user.displayName} <i class="material-icons">keyboard_arrow_down</i>`)
             ).show();
@@ -124,7 +123,6 @@
                 let address = $('<p>').text(eventInfo.address);
                 let description = $('<div class="row">').append($('<div class="col-8 description">').html(eventInfo.description));
                 let addToEvents = "";
-
                 let getTickets = $('<button class="btn btn-primary get-tickets">').text("Get Tickets").data({ id: eventInfo.id, event: eventInfo.directLink });
 
                 console.log(firebase.auth().currentUser);
@@ -138,11 +136,8 @@
                     if (!addToEvents) {
                         addToEvents = $('<button class="btn btn-success add-to-event">').html(`&#43; Add to My Events`).data({ id: eventInfo.id, event: eventInfo.directLink, action: "add" });
                     }
-
-
                     col_2.append(title, venue, address, getTickets, addToEvents);
                     setTimeout(function () {
-
                         eventDiv.empty();
                         row.append(col_1, col_2, description);
                         eventDiv.append(row);
@@ -179,11 +174,9 @@
                 let addToEvents = $('<button class="btn btn-primary get-tickets">').text("Get Tickets").data({ id: eventInfo.id, event: eventInfo.directLink });
                 col_2.append(title, venue, address, addToEvents);
                 setTimeout(function () {
-
                     eventDiv.empty();
                     row.append(col_1, col_2, description);
                     eventDiv.append(row);
-
                 }, 1000)
             }
         }
@@ -229,47 +222,10 @@
                     $('#location').popover({ content: 'Location not found. Please try again.', trigger: 'focus click', placement: 'bottom' });
                     $('#location').popover('show');
 
-
                 } else {
                     lat = parseFloat(oData.events.event[0].latitude);
                     long = parseFloat(oData.events.event[0].longitude)
                     getEventWeather(long, lat);
-                    console.log(oData);
-
-                    getEventWeather(long, lat);
-
-                    // var weatherObj = {
-                    //     url: "https://api.openweathermap.org/data/2.5/weather",
-                    //     method: "GET",
-                    //     data: {
-                    //         appid: weatherAPI,
-                    //         lat: lat,
-                    //         lon: long
-                    //     },
-                    // };
-
-                    // Weather AJAX Call
-                    // $.ajax(weatherObj).then(data => {
-                    //     var tempConverted = parseInt((data.main.temp * (9 / 5) - 459.67));
-                    //     var sunriseTime = moment.unix(data.sys.sunrise).format("HH:mm");
-                    //     var sunsetTime = moment.unix(data.sys.sunset).format("HH:mm");
-                    //     console.log("sunrise: " + sunriseTime);
-                    //     console.log("sunset: " + sunsetTime);
-                    //     console.log(now.diff(moment(data.sys.sunrise), "hours"));
-                    //     $("#temp").append(tempConverted);
-                    // });
-
-                    let eventData = {
-                        title: oData.events.event[0].title,
-                        venue_name: oData.events.event[0].venue_name,
-                        venue_address: oData.events.event[0].venue_address,
-                        city_name: oData.events.event[0].city_name,
-                    }
-
-                } else {
-                    lat = parseFloat(oData.events.event[0].latitude);
-                    long = parseFloat(oData.events.event[0].longitude);
-
                     console.log(oData);
 
                     getEventWeather(long, lat);
@@ -405,13 +361,10 @@
                     <h5>${eventData.venue_name}</h5>
                     <p>${eventData.venue_address}</p>
                     <p>${eventData.city_name}</p>
-
                 </div>
-
             `);
         });
     }
-
 
     $(".searchAdvanced").hide();
     $("#expand").hide();
