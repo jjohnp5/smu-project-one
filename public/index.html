@@ -2,6 +2,7 @@
 <html>
 
 <head>
+
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -9,11 +10,13 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
         crossorigin="anonymous">
 
+
     <!-- Link to Fonts -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <!-- Link to Flickity -->
     <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
+
     <link rel="stylesheet" type="text/css" media="screen" href="./assets/css/style.css" />
 
     <style>
@@ -51,13 +54,17 @@
     </style>
 </head>
 
-<body>
+
         <div class="container-fluid">
+
     <!-- Nav bar -->
     <nav class="navbar navbar-light bg-dark">
         <a class="navbar-brand" href="index.1.html">
             <img src="../assets/images/logo.jpg" class="d-inline-block align-top" alt="Out&amp;About">
         </a>
+
+        <div class="authentication"></div>
+
         <div class="nav-links">
         <div class="logged-in-only">
             
@@ -66,11 +73,13 @@
         <div class="authentication"></div>
         
     </div>
+
     </nav>
 
     <img src="../assets/images/dropdown.png" id="expand" alt="expand">
 
     <!-- Search -->
+
     <div class="row">
         <div class="col-12">
                 <div class="searchContainer">
@@ -110,9 +119,9 @@
                         </div>
                     </div>
         </div>
-        <div id="weather"></div>
+      <div id="weather"></div>
     </div>
-                
+
 
   
     <div class="row">
@@ -166,7 +175,7 @@
     <script src="https://cdn.firebase.com/libs/firebaseui/2.6.3/firebaseui.js"></script>
     <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.6.3/firebaseui.css" />
     <script src="./assets/js/app.js"></script>
-
+    <script src="./assets/js/weather.js"></script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPUWhQgbEHM3-FjpHcb4yqDBjZ2dwfMs0&callback=initMap">
     </script>
 
