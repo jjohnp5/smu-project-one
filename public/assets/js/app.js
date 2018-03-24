@@ -1,9 +1,5 @@
 ; (function () {
-<<<<<<< HEAD
-
-=======
     $('.selected-event').hide();
->>>>>>> 1d3eca5db99a9fba63f91372c7676e010420bc48
     let user = "";
     let db = firebase.database();
     let provider = new firebase.auth.GoogleAuthProvider();
@@ -47,8 +43,19 @@
             $('.authentication').hide();
             // $('.logged-in-popup').hide();
             // $('.logged-in-only').off();
+<<<<<<< HEAD
             $('.logged-in-only').show()
 
+=======
+            $('.logged-in-only').append(
+                $(`<button class="btn btn-outline-info logged-in-btn" data-toggle="popover">`).html(`${user.displayName} <i class="material-icons">keyboard_arrow_down</i>`)
+            ).show();
+<<<<<<< HEAD
+            
+>>>>>>> 8a03a6dc73ffdd5ca88772caa741acff087b2f9b
+=======
+
+>>>>>>> 5ecba5ad9c0f9c892e65f4bf869c4facc5039ad3
             // .on('click', function(){
             //     $('.logged-in-popup').css({
             //         position: 'absolute', 
@@ -123,9 +130,17 @@
                 let title = $('<h5>').text(eventInfo.title);
                 let venue = $('<p>').text(eventInfo.venue);
                 let address = $('<p>').text(eventInfo.address);
-                let description = $('<p>').text(eventInfo.description);
+                let description = $('<div class="row">').append($('<div class="col-8 description">').html(eventInfo.description));
                 let addToEvents = "";
+<<<<<<< HEAD
+<<<<<<< HEAD
                 let getTickets = $('<button class="btn btn-primary add-to-event">').text("Get Tickets").data({ id: eventInfo.id, event: eventInfo.directLink });
+=======
+                let getTickets = $('<button class="btn btn-primary get-tickets">').text("Get Tickets").data({ id: eventInfo.id, event: eventInfo.directLink});
+>>>>>>> 8a03a6dc73ffdd5ca88772caa741acff087b2f9b
+=======
+                let getTickets = $('<button class="btn btn-primary get-tickets">').text("Get Tickets").data({ id: eventInfo.id, event: eventInfo.directLink });
+>>>>>>> 5ecba5ad9c0f9c892e65f4bf869c4facc5039ad3
 
                 console.log(firebase.auth().currentUser);
                 db.ref(`/${firebase.auth().currentUser.uid}/events`).once('value', function (d) {
@@ -134,14 +149,27 @@
                         if (f === eventInfo.id) {
                             addToEvents = $('<button class="btn btn-danger add-to-event">').html(`&times; Remove from Events`).data({ id: eventInfo.id, event: eventInfo.directLink, action: "delete" });
                         }
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 5ecba5ad9c0f9c892e65f4bf869c4facc5039ad3
                     })
                     if (!addToEvents) {
                         addToEvents = $('<button class="btn btn-success add-to-event">').html(`&#43; Add to My Events`).data({ id: eventInfo.id, event: eventInfo.directLink, action: "add" });
                     }
+<<<<<<< HEAD
                     col_2.append(title, venue, address, description, getTickets, addToEvents);
                     setTimeout(function () {
+=======
+                        col_2.append(title, venue, address, getTickets,addToEvents);
+                        setTimeout(function () {
+>>>>>>> 8a03a6dc73ffdd5ca88772caa741acff087b2f9b
+=======
+                    col_2.append(title, venue, address, getTickets, addToEvents);
+                    setTimeout(function () {
+>>>>>>> 5ecba5ad9c0f9c892e65f4bf869c4facc5039ad3
                         eventDiv.empty();
-                        row.append(col_1, col_2);
+                        row.append(col_1, col_2, description);
                         eventDiv.append(row);
                     }, 1000)
 
@@ -172,6 +200,7 @@
                 let title = $('<h5>').text(eventInfo.title);
                 let venue = $('<p>').text(eventInfo.venue);
                 let address = $('<p>').text(eventInfo.address);
+<<<<<<< HEAD
                 let description = $('<p>').text(eventInfo.description);
                 let addToEvents = $('<button class="btn btn-primary add-to-event">').text("Get Tickets").data({ id: eventInfo.id, event: eventInfo.directLink });
                 col_2.append(title, venue, address, description, addToEvents);
@@ -179,6 +208,21 @@
                     eventDiv.empty();
                     row.append(col_1, col_2);
                     eventDiv.append(row);
+=======
+                let description = $('<div class="row">').append($('<div class="col-8 description">').html(eventInfo.description));
+                let addToEvents = $('<button class="btn btn-primary get-tickets">').text("Get Tickets").data({ id: eventInfo.id, event: eventInfo.directLink });
+                col_2.append(title, venue, address, addToEvents);
+                setTimeout(function () {
+<<<<<<< HEAD
+                eventDiv.empty();
+                row.append(col_1, col_2, description);
+                eventDiv.append(row);
+>>>>>>> 8a03a6dc73ffdd5ca88772caa741acff087b2f9b
+=======
+                    eventDiv.empty();
+                    row.append(col_1, col_2, description);
+                    eventDiv.append(row);
+>>>>>>> 5ecba5ad9c0f9c892e65f4bf869c4facc5039ad3
                 }, 1000)
             }
         }
@@ -222,10 +266,55 @@
                     $('#location').val('').focus();
                     $('#location').popover({ content: 'Location not found. Please try again.', trigger: 'focus click', placement: 'bottom' });
                     $('#location').popover('show');
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+                    
+                }else{
+                lat = parseFloat(oData.events.event[0].latitude);
+                long = parseFloat(oData.events.event[0].longitude)
+                getEventWeather(long, lat);
+                console.log(oData);
+
+                getEventWeather(long, lat);
+
+                // var weatherObj = {
+                //     url: "https://api.openweathermap.org/data/2.5/weather",
+                //     method: "GET",
+                //     data: {
+                //         appid: weatherAPI,
+                //         lat: lat,
+                //         lon: long
+                //     },
+                // };
+
+                // Weather AJAX Call
+                // $.ajax(weatherObj).then(data => {
+                //     var tempConverted = parseInt((data.main.temp * (9 / 5) - 459.67));
+                //     var sunriseTime = moment.unix(data.sys.sunrise).format("HH:mm");
+                //     var sunsetTime = moment.unix(data.sys.sunset).format("HH:mm");
+                //     console.log("sunrise: " + sunriseTime);
+                //     console.log("sunset: " + sunsetTime);
+                //     console.log(now.diff(moment(data.sys.sunrise), "hours"));
+                //     $("#temp").append(tempConverted);
+                // });
+
+                let eventData = {
+                    title: oData.events.event[0].title,
+                    venue_name: oData.events.event[0].venue_name,
+                    venue_address: oData.events.event[0].venue_address,
+                    city_name: oData.events.event[0].city_name,
+>>>>>>> 8a03a6dc73ffdd5ca88772caa741acff087b2f9b
+=======
+>>>>>>> 5ecba5ad9c0f9c892e65f4bf869c4facc5039ad3
 
                 } else {
                     lat = parseFloat(oData.events.event[0].latitude);
                     long = parseFloat(oData.events.event[0].longitude)
+<<<<<<< HEAD
+=======
+                    getEventWeather(long, lat);
+>>>>>>> 5ecba5ad9c0f9c892e65f4bf869c4facc5039ad3
                     console.log(oData);
 
                     getEventWeather(long, lat);
@@ -308,7 +397,6 @@
                 $('#location').popover('show');
             })
 <<<<<<< HEAD
-=======
 
         // Weather AJAX Call
         $.ajax(weatherObj).then(data => {
@@ -322,7 +410,9 @@
         });
 
 
->>>>>>> 1d3eca5db99a9fba63f91372c7676e010420bc48
+=======
+
+>>>>>>> e033222e9f615525ef09650b91bac163342a0542
     }
     const categ = document.querySelector('#category');
     $('#location').on('click', function (e) {
@@ -351,6 +441,9 @@
     $("#search").on('click', (e) => {
         e.preventDefault();
         show_alert($('#location').val().trim(), $('#category').val().trim());
+    });
+    $(document).on('click', '.get-tickets', function () {
+        window.open($(this).data('event')); fi
     })
     function initMap(lat, long, eventData) {
         var infoWindow = new google.maps.InfoWindow;
@@ -381,11 +474,51 @@
     }
 <<<<<<< HEAD
 
-
 =======
+>>>>>>> e033222e9f615525ef09650b91bac163342a0542
 
->>>>>>> 1d3eca5db99a9fba63f91372c7676e010420bc48
+    $(".searchAdvanced").hide();
+    $("#expand").hide();
+    $(".myEvents").hide();
+    $(".mainEvent").hide();
+// })
+
+$("#location").focus(function () {
+    $(".searchAdvanced").show();
+})
 
 
 
+var searchLocation;
+
+$("#search").click(function () {
+    event.preventDefault();
+
+    searchLocation = $("#location").val().trim().toUpperCase();
+    if (searchLocation === "") {
+        $("#location").attr("placeholder", "Please enter a location.");
+        $("#location").css("background-color", "lightyellow");
+    }
+    else {
+        $(".searchContainer").hide();
+        $("#expand").show();
+        $("#location").css("background-color", "white");
+        $("#eventHeading").html("Events in " + searchLocation);
+    }
+})
+
+$("#expand").click(function () {
+    $(this).hide();
+    $(".searchContainer").show();
+    $(".searchAdvanced").hide();
+})
+
+$(".btn-main-event").click(function () {
+    $(".searchAdvanced").hide();
+    $(".mainEvent").show();
+    $("#eventHeading").html("Other Events");
+
+
+
+})
 })()
