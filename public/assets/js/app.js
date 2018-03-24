@@ -101,19 +101,33 @@
 
                 }
 
-                initMap(lat, long, eventData);
-                $('.event-list').empty();
+                // initMap(lat, long, eventData);(
+                if($('.carousel').flickity()){ $('.carousel').flickity('destroy');}
+                
+                $('.carousel').empty();
                 oData.events.event.forEach((event) => {
-                    content = $('<div class="event">');
-                    title = $('<h4>').text(event.title);
-                    venue_name = $('<p>').text(event.venue_name);
-                    venue_address = $('<p>').text(event.venue_address).on('click', (e) => {
+                    // console.log(event);
+                    let content = $('<div class="carousel-cell">');
+                    let wrapper = $('<div class="card">');
+                    let image = $('<img class="card-img-top img-responsive">').attr('src', event.image.url);
+                    let cardBody = $('<div class="card-body">');
+                    let title = $('<h5 class="card-title">').text(event.title);
+                    let venue_name = $('<div>').text(event.venue_name);
+                    let venue_address = $('<div>').text(event.venue_address).on('click', (e) => {
                         initMap(parseFloat(event.latitude), parseFloat(event.longitude), { title: event.title, venue_name: event.venue_name, venue_address: event.venue_address, city_name: event.city_name })
                     });
-                    city_name = $('<p>').text(event.city_name);
-                    content.append(title, venue_name, venue_address, city_name);
-                    $('.event-list').append(content);
+                    let city_name = $('<div>').text(event.city_name);
+                    cardBody.append(title, venue_name, venue_address, city_name);
+                    wrapper.append(image, cardBody);
+                    content.append(wrapper);
+                    $('.carousel').append(content);
+                    
                 })
+                
+                $('.carousel').flickity({
+                    // options
+                    autoPlay: 3500
+                  });
 
             })
 
@@ -130,9 +144,8 @@
 
     }
     const categ = document.querySelector('#category');
-    $('.cat').css({ position: "absolute", top: `${categ.getBoundingClientRect().top + categ.offsetHeight}px`, left: `${categ.getBoundingClientRect().left}px`, width: `${categ.offsetWidth}px`, zIndex: 999, backgroundColor: "white" })
-    $('#category').on('click', function (e) {
-        let self = $(this);
+    $('#location').on('click', function (e) {
+        let self = $('#category');
 
 
         $.ajax({

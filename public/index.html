@@ -2,16 +2,16 @@
 <html>
 
 <head>
-        <!-- Link to Bootstrap & stylesheet -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+    <!-- Link to Bootstrap & stylesheet -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
         crossorigin="anonymous">
-        <link rel="stylesheet" type="text/css" media="screen" href="../assets/css/style.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="./assets/css/style.css" />
 
     <!-- Link to Fonts -->
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <!-- Link to Flickity -->
-        <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
     <style>
         #map {
             height: 400px;
@@ -26,57 +26,72 @@
         .selected {
             background-color: grey;
         }
+        .card{
+            width: 18rem;
+        }
     </style>
 </head>
 
 <body>
-        <!-- Nav bar -->
-        <nav class="navbar navbar-light bg-dark">
-                <a class="navbar-brand" href="index.1.html">
-                    <img src="../assets/images/logo.jpg" class="d-inline-block align-top" alt="Out&amp;About">
-                </a>
-                <div class="authentication"></div>  
-            </nav>
-        
-            <img src="../assets/images/dropdown.png" id="expand" alt="expand">
-        
-            <!-- Search -->
-            <div class="searchContainer">
-                <div class="button_box2">
-                    <form class="form-wrapper-2 cf">
-                        <input type="text" id="location" placeholder="Location" required>
-                        <button type="submit" id="search">Search</button>
-                    </form>
-                </div>
-                <div class="searchAdvanced">
-                    <form class="form-inline justify-content-center">
-                        <div class="form-group col-sm-12">
-        
-                            <label for="category">Category</label>
-                            <select class="form-control col-sm-3" id="category">
-                                <option selected>Select</option>
-                            </select>
-        
-                            <label for="exampleFormControlSelect1">Range</label>
-                            <select class="form-control col-sm-3" id="exampleFormControlSelect1">
-                                <option selected>Select</option>
-                            </select>
-        
-                            <label for="exampleFormControlSelect1">Date</label>
-                            <select class="form-control col-sm-3" id="exampleFormControlSelect1">
-                                <option selected>Select</option>
-                            </select>
-        
-                        </div>
-                    </form>
-        
-                </div>
-            </div>
+    <!-- Nav bar -->
+    <nav class="navbar navbar-light bg-dark">
+        <a class="navbar-brand" href="index.1.html">
+            <img src="./assets/images/logo.jpg" class="d-inline-block align-top" alt="Out&amp;About">
+        </a>
+        <div class="authentication"></div>
+    </nav>
 
+    <img src="./assets/images/dropdown.png" id="expand" alt="expand">
+
+    <!-- Search -->
+    <div class="searchContainer">
+        <div class="button_box2">
+            <form class="form-wrapper-2 cf">
+                <input type="text" id="location" placeholder="Location" required>
+                <button type="submit" id="search">Search</button>
+            </form>
+        </div>
+        <div class="searchAdvanced">
+            <form class="form-inline justify-content-center">
+                <div class="form-group col-sm-12">
+
+                    <label for="category">Category</label>
+                    <select class="form-control col-sm-3" id="category">
+                        <option selected>Select</option>
+                    </select>
+
+                    <label for="exampleFormControlSelect1">Range</label>
+                    <select class="form-control col-sm-3" id="exampleFormControlSelect1">
+                        <option selected>Select</option>
+                    </select>
+
+                    <label for="exampleFormControlSelect1">Date</label>
+                    <select class="form-control col-sm-3" id="exampleFormControlSelect1">
+                        <option selected>Select</option>
+                    </select>
+
+                </div>
+            </form>
+
+        </div>
+    </div>
+    <div class="container-fluid">
+    <div class="myEvents">
+        <h5>My Events</h5>
+    </div>
+    <!--Top Events Carousel -->
+    <div id="eventsCarousel">
+        <h5 class="heading" id="eventHeading">TOP EVENTS</h5>
+        <div class="carousel">
+        </div>
+    </div>
+</div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script type="text/javascript" src="http://api.eventful.com/js/api"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/moment.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
+    <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+
     <script>
         // Initialize Firebase
         var config = {
