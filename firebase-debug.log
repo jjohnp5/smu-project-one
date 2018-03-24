@@ -1,0 +1,105 @@
+[debug] [2018-03-24T16:36:13.361Z] ----------------------------------------------------------------------
+[debug] [2018-03-24T16:36:13.364Z] Command:       /usr/bin/node /usr/bin/firebase serve
+[debug] [2018-03-24T16:36:13.364Z] CLI Version:   3.17.7
+[debug] [2018-03-24T16:36:13.364Z] Platform:      linux
+[debug] [2018-03-24T16:36:13.364Z] Node Version:  v9.5.0
+[debug] [2018-03-24T16:36:13.364Z] Time:          Sat Mar 24 2018 11:36:13 GMT-0500 (CDT)
+[debug] [2018-03-24T16:36:13.365Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-03-24T16:36:13.371Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-03-24T16:36:13.372Z] > authorizing via signed-in user
+[debug] [2018-03-24T16:36:13.373Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/my-project-1504633733231  
+  
+ Sat Mar 24 2018 11:36:13 GMT-0500 (CDT)
+[debug] [2018-03-24T16:36:13.857Z] <<< HTTP RESPONSE 200
+[debug] [2018-03-24T16:36:13.859Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/my-project-1504633733231/tokens  
+  
+ Sat Mar 24 2018 11:36:13 GMT-0500 (CDT)
+[debug] [2018-03-24T16:36:14.121Z] <<< HTTP RESPONSE 200
+[debug] [2018-03-24T16:36:14.122Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/my-project-1504633733231  
+  
+ Sat Mar 24 2018 11:36:14 GMT-0500 (CDT)
+[debug] [2018-03-24T16:39:09.115Z] ----------------------------------------------------------------------
+[debug] [2018-03-24T16:39:09.117Z] Command:       /usr/bin/node /usr/bin/firebase serve
+[debug] [2018-03-24T16:39:09.118Z] CLI Version:   3.17.7
+[debug] [2018-03-24T16:39:09.118Z] Platform:      linux
+[debug] [2018-03-24T16:39:09.118Z] Node Version:  v9.5.0
+[debug] [2018-03-24T16:39:09.118Z] Time:          Sat Mar 24 2018 11:39:09 GMT-0500 (CDT)
+[debug] [2018-03-24T16:39:09.118Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-03-24T16:39:09.126Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-03-24T16:39:09.126Z] > authorizing via signed-in user
+[debug] [2018-03-24T16:39:09.129Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/my-project-1504633733231  
+  
+ Sat Mar 24 2018 11:39:09 GMT-0500 (CDT)
+[debug] [2018-03-24T16:39:09.438Z] <<< HTTP RESPONSE 200
+[debug] [2018-03-24T16:39:09.439Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/my-project-1504633733231/tokens  
+  
+ Sat Mar 24 2018 11:39:09 GMT-0500 (CDT)
+[debug] [2018-03-24T16:39:10.063Z] <<< HTTP RESPONSE 200
+[debug] [2018-03-24T16:39:10.065Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/my-project-1504633733231  
+  
+ Sat Mar 24 2018 11:39:10 GMT-0500 (CDT)
+[debug] [2018-03-24T16:39:20.322Z] ----------------------------------------------------------------------
+[debug] [2018-03-24T16:39:20.325Z] Command:       /usr/bin/node /usr/bin/firebase serve
+[debug] [2018-03-24T16:39:20.325Z] CLI Version:   3.17.7
+[debug] [2018-03-24T16:39:20.325Z] Platform:      linux
+[debug] [2018-03-24T16:39:20.325Z] Node Version:  v9.5.0
+[debug] [2018-03-24T16:39:20.325Z] Time:          Sat Mar 24 2018 11:39:20 GMT-0500 (CDT)
+[debug] [2018-03-24T16:39:20.326Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-03-24T16:39:20.333Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-03-24T16:39:20.333Z] > authorizing via signed-in user
+[debug] [2018-03-24T16:39:20.334Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/my-project-1504633733231  
+  
+ Sat Mar 24 2018 11:39:20 GMT-0500 (CDT)
+[debug] [2018-03-24T16:39:20.607Z] <<< HTTP RESPONSE 200
+[debug] [2018-03-24T16:39:20.609Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/my-project-1504633733231/tokens  
+  
+ Sat Mar 24 2018 11:39:20 GMT-0500 (CDT)
+[debug] [2018-03-24T16:39:20.905Z] <<< HTTP RESPONSE 200
+[debug] [2018-03-24T16:39:20.907Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/my-project-1504633733231  
+  
+ Sat Mar 24 2018 11:39:20 GMT-0500 (CDT)
+[debug] [2018-03-24T16:39:49.296Z] ----------------------------------------------------------------------
+[debug] [2018-03-24T16:39:49.298Z] Command:       /usr/bin/node /usr/bin/firebase serve
+[debug] [2018-03-24T16:39:49.298Z] CLI Version:   3.17.7
+[debug] [2018-03-24T16:39:49.298Z] Platform:      linux
+[debug] [2018-03-24T16:39:49.298Z] Node Version:  v9.5.0
+[debug] [2018-03-24T16:39:49.299Z] Time:          Sat Mar 24 2018 11:39:49 GMT-0500 (CDT)
+[debug] [2018-03-24T16:39:49.299Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-03-24T16:39:49.305Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-03-24T16:39:49.306Z] > authorizing via signed-in user
+[debug] [2018-03-24T16:39:49.307Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/my-project-1504633733231  
+  
+ Sat Mar 24 2018 11:39:49 GMT-0500 (CDT)
+[debug] [2018-03-24T16:39:49.566Z] <<< HTTP RESPONSE 200
+[debug] [2018-03-24T16:39:49.568Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/my-project-1504633733231/tokens  
+  
+ Sat Mar 24 2018 11:39:49 GMT-0500 (CDT)
+[debug] [2018-03-24T16:39:49.987Z] <<< HTTP RESPONSE 200
+[debug] [2018-03-24T16:39:49.990Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/my-project-1504633733231  
+  
+ Sat Mar 24 2018 11:39:49 GMT-0500 (CDT)
+[debug] [2018-03-24T16:40:39.421Z] ----------------------------------------------------------------------
+[debug] [2018-03-24T16:40:39.423Z] Command:       /usr/bin/node /usr/bin/firebase serve
+[debug] [2018-03-24T16:40:39.423Z] CLI Version:   3.17.7
+[debug] [2018-03-24T16:40:39.423Z] Platform:      linux
+[debug] [2018-03-24T16:40:39.423Z] Node Version:  v9.5.0
+[debug] [2018-03-24T16:40:39.423Z] Time:          Sat Mar 24 2018 11:40:39 GMT-0500 (CDT)
+[debug] [2018-03-24T16:40:39.423Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-03-24T16:40:39.430Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-03-24T16:40:39.431Z] > authorizing via signed-in user
+[debug] [2018-03-24T16:40:39.432Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/my-project-1504633733231  
+  
+ Sat Mar 24 2018 11:40:39 GMT-0500 (CDT)
+[debug] [2018-03-24T16:40:39.671Z] <<< HTTP RESPONSE 200
+[debug] [2018-03-24T16:40:39.672Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/my-project-1504633733231/tokens  
+  
+ Sat Mar 24 2018 11:40:39 GMT-0500 (CDT)
+[debug] [2018-03-24T16:40:39.959Z] <<< HTTP RESPONSE 200
+[debug] [2018-03-24T16:40:39.962Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/my-project-1504633733231  
+  
+ Sat Mar 24 2018 11:40:39 GMT-0500 (CDT)
