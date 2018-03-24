@@ -206,7 +206,8 @@
                 category: cat,
                 // page_size: 25,
                 sort_order: 'popularity',
-                date: "Next Week"
+                date: "Next Week",
+                image_sizes: "large"
             },
             dataType: 'jsonp',
             crossDomain: true
@@ -275,13 +276,13 @@
                             id: event.id,
                             directLink: event.url,
                             performers: event.performers,
-                            image: event.image ? event.image.medium.url : "./assets/images/out&about.jpg"
+                            image: event.image ? event.image.large.url : "./assets/images/out&about.jpg"
 
 
                         }
                         let wrapper = $('<div class="carousel-cell">');
                         let card = $('<div class="card">');
-                        let cardImg = $('<img class="img-responsive card-img-top">').attr('src', event.image ? event.image.medium.url : "./assets/images/out&about.jpg");
+                        let cardImg = $('<img class="img-responsive card-img-top">').attr('src', event.image ? event.image.large.url : "./assets/images/out&about.jpg");
                         let cardBody = $('<div class="card-body">');
                         let title = $('<h6>').text(event.title);
                         let venue_name = $('<p>').text(event.venue_name);
