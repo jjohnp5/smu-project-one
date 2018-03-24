@@ -190,9 +190,9 @@
         $('#location').popover('hide');
         var lat = "";
         var long = "";
-        var weatherURL = "https://api.openweathermap.org/data/2.5/weather?q=";
-        var weatherAPI = "44df1c912088b9675614938b52bcbd0e";
-        var now = moment();
+        // var weatherURL = "https://api.openweathermap.org/data/2.5/weather?q=";
+        // var weatherAPI = "44df1c912088b9675614938b52bcbd0e";
+        // var now = moment();
 
         var oArgs = {
             method: 'GET',
@@ -211,15 +211,6 @@
 
         };
 
-        var weatherObj = {
-            url: "https://api.openweathermap.org/data/2.5/weather",
-            method: "GET",
-            data: {
-                appid: weatherAPI,
-                q: loc
-            },
-        };
-
         $.ajax(oArgs)
             .then(function (oData) {
                 if (!oData.events) {
@@ -232,6 +223,30 @@
                 lat = parseFloat(oData.events.event[0].latitude);
                 long = parseFloat(oData.events.event[0].longitude)
                 console.log(oData);
+
+                getEventWeather(long, lat);
+
+                // var weatherObj = {
+                //     url: "https://api.openweathermap.org/data/2.5/weather",
+                //     method: "GET",
+                //     data: {
+                //         appid: weatherAPI,
+                //         lat: lat,
+                //         lon: long
+                //     },
+                // };
+
+                // Weather AJAX Call
+                // $.ajax(weatherObj).then(data => {
+                //     var tempConverted = parseInt((data.main.temp * (9 / 5) - 459.67));
+                //     var sunriseTime = moment.unix(data.sys.sunrise).format("HH:mm");
+                //     var sunsetTime = moment.unix(data.sys.sunset).format("HH:mm");
+                //     console.log("sunrise: " + sunriseTime);
+                //     console.log("sunset: " + sunsetTime);
+                //     console.log(now.diff(moment(data.sys.sunrise), "hours"));
+                //     $("#temp").append(tempConverted);
+                // });
+
                 let eventData = {
                     title: oData.events.event[0].title,
                     venue_name: oData.events.event[0].venue_name,
@@ -289,18 +304,6 @@
                 $('#location').popover('show');
             })
 
-        // Weather AJAX Call
-        $.ajax(weatherObj).then(data => {
-            var tempConverted = parseInt((data.main.temp * (9 / 5) - 459.67));
-            var sunriseTime = moment.unix(data.sys.sunrise).format("HH:mm");
-            var sunsetTime = moment.unix(data.sys.sunset).format("HH:mm");
-            console.log("sunrise: " + sunriseTime);
-            console.log("sunset: " + sunsetTime);
-            console.log(now.diff(moment(data.sys.sunrise), "hours"));
-            $("#temp").append(tempConverted);
-        });
-        
-
     }
     const categ = document.querySelector('#category');
     $('#location').on('click', function (e) {
@@ -357,7 +360,6 @@
             `);
         });
     }
-    
 
 
 
