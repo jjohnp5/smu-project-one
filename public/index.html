@@ -71,7 +71,15 @@
         <a class="navbar-brand" href="index.1.html">
             <img src="../assets/images/logo.jpg" class="d-inline-block align-top" alt="Out&amp;About">
         </a>
+        <div class="nav-links">
+        <div class="logged-in-only">
+            <button class="btn btn-outline-info logged-in-btn" data-toggle="popover">My Account <i class="material-icons">keyboard_arrow_down</i></button>
+            
+        </div>
+        
         <div class="authentication"></div>
+        
+    </div>
     </nav>
 
     <img src="../assets/images/dropdown.png" id="expand" alt="expand">
@@ -183,6 +191,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/moment.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
     <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
     <script>
         // Initialize Firebase
@@ -198,7 +208,6 @@
     </script>
     <script src="https://cdn.firebase.com/libs/firebaseui/2.6.3/firebaseui.js"></script>
     <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.6.3/firebaseui.css" />
-    <script src="//unpkg.com/navigo@6"></script>
     <script src="./assets/js/app.js"></script>
     <script src="./assets/js/weather.js"></script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPUWhQgbEHM3-FjpHcb4yqDBjZ2dwfMs0&callback=initMap">

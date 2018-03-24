@@ -44,7 +44,51 @@
         $('.selected-event').empty().slideUp(500);
     
         if (user) {
-            $('.authentication').append($('<button class="sign-out btn btn-outline-danger my-2 my-sm-0">').text("Sign Out"));
+            $('.authentication').hide();
+            // $('.logged-in-popup').hide();
+            // $('.logged-in-only').off();
+            $('.logged-in-only').show()
+            
+            // .on('click', function(){
+            //     $('.logged-in-popup').css({
+            //         position: 'absolute', 
+            //         top: `${document.querySelector('.logged-in-only').getBoundingClientRect().bottom}px`,
+            //         // right: `${document.querySelector('.logged-in-only').offsetLeft + document.querySelector('.logged-in-only').offsetWidth}px`
+            //         right: '50px'
+            // })('')
+            console.log(user);
+            
+            $('.logged-in-btn')
+                .popover({
+                content: `
+                    <div class="popover-container">
+                        <div class="row">
+                        <div class="col-12">
+                        <p>${user.email}</p>
+                            </div>
+                            <div class="col-8 offset-2">
+                        <img src="${user.photoURL}" class="img-fluid">
+                            </div>
+                            <div class="col-6">
+                                <button class="btn btn-success my-events">My Events</button>
+                            </div>
+                            <div class="col-6">
+                        <button class="btn btn-outline-danger sign-out">Sign Out</button>
+                            </div>
+                        </div>
+                    </div>
+                `,
+                
+                // $(`<div>`).append($(`<p>`).text(user.email)).append(
+                //     $('<button>').addClass('btn btn-outline-danger sign-out').text('Sign Out'))
+                // ,
+                placement: 'bottom',
+                title: user.displayName,
+                html: true
+            })
+            
+            // })
+            // $('.authentication').append($('<button class="sign-out btn btn-outline-danger my-2 my-sm-0">').text("Sign Out"));
             user = user.uid;
             console.log(user);
             let currentEvent = ""
@@ -107,6 +151,10 @@
                 
             
         } else {
+            $('.authentication').show();
+            $('.logged-in-only').hide();
+            $('[data-toggle=popover]').popover('hide');
+            // $('.logged-in-popup').hide();
             $('.authentication').append($('<button class="google-signin btn btn-outline-primary my-2 my-sm-0">').text("Sign in with Google"));
             $(document).on('click', '.add-to-event', function () {
 
@@ -143,6 +191,7 @@
     let $listItems;
     function show_alert(loc, cat) {
         $('#loading').removeClass('display');
+        $('#location').popover('hide');
         var lat = "";
         var long = "";
         // var weatherURL = "https://api.openweathermap.org/data/2.5/weather?q=";
@@ -169,10 +218,12 @@
         $.ajax(oArgs)
             .then(function (oData) {
                 if (!oData.events) {
-                    alert('No events on the city selected, please try again.');
+                    $('#loading').addClass('display');
                     $('#location').val('').focus();
-                    return;
-                }
+                    $('#location').popover({content: 'Location not found. Please try again.', trigger: 'focus click', placement: 'bottom'});
+                    $('#location').popover('show');
+                    
+                }else{
                 lat = parseFloat(oData.events.event[0].latitude);
                 long = parseFloat(oData.events.event[0].longitude)
                 console.log(oData);
@@ -249,6 +300,12 @@
                 })
                 $('.carousel').flickity({ autoPlay: true, adaptiveHeight: true, setGallerySize: false });
                 $('#loading').addClass('display');
+            }
+            }).catch(err =>{
+                $('#loading').addClass('display');
+                $('#location').val('').focus();
+                $('#location').popover({content: 'Location not found. Please try again.'});
+                $('#location').popover('show');
             })
 <<<<<<< HEAD
 =======
@@ -269,6 +326,7 @@
     }
     const categ = document.querySelector('#category');
     $('#location').on('click', function (e) {
+        
         let self = $('#category');
 
 
@@ -290,7 +348,7 @@
         })
     })
 
-    $("button").on('click', (e) => {
+    $("#search").on('click', (e) => {
         e.preventDefault();
         show_alert($('#location').val().trim(), $('#category').val().trim());
     })
