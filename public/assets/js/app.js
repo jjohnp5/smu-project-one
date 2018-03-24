@@ -372,7 +372,7 @@
                         }
                         let wrapper = $('<div class="carousel-cell">');
                         let card = $('<div class="card">');
-                        let cardImg = $('<img class="img-responsive card-img-top">').attr('src', event.image ? event.image.large.url : "./assets/images/out&about.jpg");
+                        let cardImg = $('<img class="img-fluid card-img-top">').attr('src', event.image ? event.image.large.url : "./assets/images/out&about.jpg");
                         let cardBody = $('<div class="card-body">');
                         let title = $('<h6>').text(event.title);
                         let venue_name = $('<p>').text(event.venue_name);
