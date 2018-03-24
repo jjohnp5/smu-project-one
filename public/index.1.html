@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Out&amp;About</title>
-    <link rel="icon" href="../assets/images/favicon.png">
+    <link rel="icon" href="./assets/images/favicon.png">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Link to the jQuery Library -->
@@ -14,7 +14,7 @@
     <!-- Link to Bootstrap & stylesheet -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
         crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" media="screen" href="../assets/css/style.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="./assets/css/style.css" />
 
     <!-- Link to Fonts -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -31,16 +31,17 @@
     <!-- Nav bar -->
     <nav class="navbar navbar-light bg-dark">
         <a class="navbar-brand" href="index.1.html">
-            <img src="../assets/images/logo.jpg" class="d-inline-block align-top" alt="Out&amp;About">
+            <img src="./assets/images/logo.jpg" class="d-inline-block align-top" alt="Out&amp;About">
         </a>
         <div class="authentication">
-    </div>
+        </div>
     </nav>
 
-    <img src="../assets/images/dropdown.png" id="expand" alt="expand">
+    <img src="./assets/images/dropdown.png" id="expand" alt="expand">
 
     <!-- Search -->
     <div class="searchContainer">
+        <div id="weather"></div>
         <div class="button_box2">
             <form class="form-wrapper-2 cf">
                 <input type="text" id="location" placeholder="Location" required>
@@ -52,7 +53,7 @@
                 <div class="form-group col-sm-12">
 
                     <label for="exampleFormControlSelect1">Category</label>
-                    <select class="form-control col-sm-3" id="exampleFormControlSelect1" >
+                    <select class="form-control col-sm-3" id="exampleFormControlSelect1">
                         <option selected>Select</option>
                     </select>
 
@@ -76,7 +77,7 @@
     <div class="mainEvent">
         <div class="row">
             <div class="col-sm-4">
-                <img src="../assets/images/1.jpeg" alt="Card image cap" style="width: 24rem">
+                <img src="./assets/images/1.jpeg" alt="Card image cap" style="width: 24rem">
 
             </div>
             <div class="col-sm-4">
@@ -87,13 +88,13 @@
                     <br> Irving, Texas 75039</p>
             </div>
             <div class="col-sm-4">
-                <img src="../assets/images/map.jpg" style="width: 24rem">
+                <img src="./assets/images/map.jpg" style="width: 24rem">
             </div>
         </div>
     </div>
-<!--My Events-->
-<div class="myEvents">
-<h5>My Events</h5>
+    <!--My Events-->
+    <div class="myEvents">
+        <h5>My Events</h5>
     </div>
     <!--Top Events Carousel -->
     <div id="eventsCarousel">
@@ -101,7 +102,7 @@
         <div class="carousel" data-flickity='{ "autoPlay": 3500 }'>
             <div class="carousel-cell">
                 <div class="card" style="width: 18rem;">
-                    <img class="card-img-top" src="../assets/images/1.jpeg" alt="Card image cap">
+                    <img class="card-img-top" src="./assets/images/1.jpeg" alt="Card image cap">
                     <div class="card-body">
                         <h6 class="card-title">Beck</h6>
                         <p class="card-text">Fri, Mar 23 - 7:30 PM</p>
@@ -111,7 +112,7 @@
             </div>
             <div class="carousel-cell">
                 <div class="card" style="width: 18rem;">
-                    <img class="card-img-top" src="../assets/images/2.png" alt="Card image cap">
+                    <img class="card-img-top" src="./assets/images/2.png" alt="Card image cap">
                     <div class="card-body">
                         <h6 class="card-title">Foo Fighters: Concrete And Gold Tour '18 in Dallas</h6>
                         <p class="card-text">Sat, Apr 21 - 7:30 PM</p>
@@ -121,7 +122,7 @@
             </div>
             <div class="carousel-cell">
                 <div class="card" style="width: 18rem;">
-                    <img class="card-img-top" src="../assets/images/3.png" alt="Card image cap">
+                    <img class="card-img-top" src="./assets/images/3.png" alt="Card image cap">
                     <div class="card-body">
                         <h6 class="card-title">Paramore &amp; Foster The People in Irving</h6>
                         <p class="card-text">Sat, Jul 14 - 7:00 PM</p>
@@ -131,7 +132,7 @@
             </div>
             <div class="carousel-cell">
                 <div class="card" style="width: 18rem;">
-                    <img class="card-img-top" src="../assets/images/4.jpeg" alt="Card image cap">
+                    <img class="card-img-top" src="./assets/images/4.jpeg" alt="Card image cap">
                     <div class="card-body">
                         <h6 class="card-title">Andrea Bocelli</h6>
                         <p class="card-text">Wed, Dec 5 - 7:30 PM</p>
@@ -141,7 +142,7 @@
             </div>
             <div class="carousel-cell">
                 <div class="card" style="width: 18rem;">
-                    <img class="card-img-top" src="../assets/images/5.jpeg" alt="Card image cap">
+                    <img class="card-img-top" src="./assets/images/5.jpeg" alt="Card image cap">
                     <div class="card-body">
                         <h6 class="card-title">Elton John</h6>
                         <p class="card-text">Fri, Dec 14 - 8:00 PM</p>
@@ -158,6 +159,7 @@
     </footer>
     <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
 
-    <script src="../assets/javascript/app.js"></script>
+    <script src="./assets/javascript/app.js"></script>
+    <script src="./assets/js/weather.js`"></script>
 
 </body>
