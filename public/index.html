@@ -60,7 +60,6 @@
         </a>
         <div class="nav-links">
         <div class="logged-in-only">
-            <button class="btn btn-outline-info logged-in-btn" data-toggle="popover">My Account <i class="material-icons">keyboard_arrow_down</i></button>
             
         </div>
         
@@ -93,6 +92,11 @@
                                     <label for="exampleFormControlSelect1">Range</label>
                                     <select class="form-control col-sm-3" id="exampleFormControlSelect1">
                                         <option selected>Select</option>
+                                        <option selected>Today</option>
+                                        <option selected>Next Week</option>
+                                        <option selected>Select</option>
+                                        <option selected>Select</option>
+                                        <option selected>Select</option>
                                     </select>
                 
                                     <label for="exampleFormControlSelect1">Date</label>
@@ -106,6 +110,7 @@
                         </div>
                     </div>
         </div>
+        <div id="weather"></div>
     </div>
                 
 
@@ -161,6 +166,7 @@
     <script src="https://cdn.firebase.com/libs/firebaseui/2.6.3/firebaseui.js"></script>
     <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.6.3/firebaseui.css" />
     <script src="./assets/js/app.js"></script>
+
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPUWhQgbEHM3-FjpHcb4yqDBjZ2dwfMs0&callback=initMap">
     </script>
 
