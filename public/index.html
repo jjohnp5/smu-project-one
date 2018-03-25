@@ -3,14 +3,14 @@
 
 <head>
 
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <!-- Link to Bootstrap & stylesheet -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
         crossorigin="anonymous">
 
-        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <!-- Link to Fonts -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
@@ -55,7 +55,7 @@
 </head>
 
 
-        <div class="container-fluid">
+<div class="container-fluid">
 
     <!-- Nav bar -->
     <nav class="navbar navbar-light bg-dark">
@@ -65,13 +65,13 @@
 
 
         <div class="nav-links">
-        <div class="logged-in-only">
-            
+            <div class="logged-in-only">
+
+            </div>
+
+            <div class="authentication"></div>
+
         </div>
-        
-        <div class="authentication"></div>
-        
-    </div>
 
     </nav>
 
@@ -81,102 +81,137 @@
 
     <div class="row">
         <div class="col-12">
-                <div class="searchContainer">
-                        <div class="button_box2">
-                            <form class="form-wrapper-2 cf">
-                                <input type="text" id="location" placeholder="Location" required>
-                                <button type="submit" id="search">Search</button>
-                            </form>
+            <div class="searchContainer">
+                <div class="button_box2">
+                    <form class="form-wrapper-2 cf">
+                        <input type="text" id="location" placeholder="Location" required>
+                        <button type="submit" id="search">Search</button>
+                    </form>
+                </div>
+                <div class="searchAdvanced">
+                    <form class="form-inline justify-content-center">
+                        <div class="form-group col-sm-12">
+
+                            <label for="category">Category</label>
+                            <select class="form-control col-sm-3" id="category">
+                                <option selected>Select</option>
+                            </select>
+
+                            <label for="exampleFormControlSelect1">Date</label>
+                            <select class="form-control col-sm-3" id="date">
+                                <option selected>All</option>
+                                <option>Today</option>
+                                <option>Next Week</option>
+                                <option>This Week</option>
+                                <option>Last Week</option>
+                                <option>Past</option>
+                            </select>
+
+
                         </div>
-                        <div class="searchAdvanced">
-                            <form class="form-inline justify-content-center">
-                                <div class="form-group col-sm-12">
-                
-                                    <label for="category">Category</label>
-                                    <select class="form-control col-sm-3" id="category">
-                                        <option selected>Select</option>
-                                    </select>
-                
-                                    <label for="exampleFormControlSelect1">Range</label>
-                                    <select class="form-control col-sm-3" id="exampleFormControlSelect1">
-                                        <option selected>Select</option>
-                                        <option selected>Today</option>
-                                        <option selected>Next Week</option>
-                                        <option selected>Select</option>
-                                        <option selected>Select</option>
-                                        <option selected>Select</option>
-                                    </select>
-                
-                                    <label for="exampleFormControlSelect1">Date</label>
-                                    <select class="form-control col-sm-3" id="exampleFormControlSelect1">
-                                        <option selected>Select</option>
-                                    </select>
-                
-                                </div>
-                            </form>
-                
-                        </div>
-                    </div>
+                    </form>
+
+                </div>
+            </div>
         </div>
-      <div id="weather"></div>
+        <div id="weather"></div>
     </div>
 
 
-  
     <div class="row">
-        <div class="col-12 selected-event">
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-12">
-                <div id="eventsCarousel">
+        <div class="col-12 home-container">
+            <div class="row">
+                <div class="col-12 selected-event">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div id="eventsCarousel">
                         <h5 class="heading" id="eventHeading">TOP EVENTS</h5>
                         <div class="carousel">
-                        </div> <!-- end carousel -->
-                    </div> <!-- end eventsCarousel -->
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-12">
-                <div id="map">
+                        </div>
+                        <!-- end carousel -->
+                    </div>
+                    <!-- end eventsCarousel -->
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div id="map">
 
                     </div>
-        </div>
+                </div>
+            </div>
+        </div> <!-- end home container -->
     </div>
-
     <!-- <div id="signing-out-modal">
         <h1>signing out....</h1>
     </div> -->
+    <div class="row my-events display">
+        <div class="col-12">
+            <div class="row">
+                <div class="col-3">
+                    <ul class="my-event-list">
+
+                    </ul>
+                </div>
+                <div class="col-9 my-event-full">
+                    <div class="row">
+                        <div class="col-8">
+                            <img src="" alt="" class="my-event-img">
+                        </div>
+                        <div class="col-4">
+                            <h3 class="my-event-title"></h3>
+                            <h4 class="my-event-venue"></h4>
+                            <p class="my-event-address"></p>
+                        </div>
+                    </div>
+                    <div class="row my-event-description">
+                        
+                    </div>
+                    <div class="row">
+                        <div class="col-4 offset-4">
+                            <div id="my-event-map">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </div>
 <div class="loading display" id="loading">
-    <img class="img-responsive" src="./assets/images/Loading_icon.gif" alt="loading gif" >
+    <img class="img-responsive" src="./assets/images/Loading_icon.gif" alt="loading gif">
 </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/moment.min.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
-    <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/moment.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
+<script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
 
-    <script>
-        // Initialize Firebase
-        var config = {
-            apiKey: "AIzaSyAH9fTBxqIfgsYl57B4Rq60dBrY4_sIEIA",
-            authDomain: "my-project-1504633733231.firebaseapp.com",
-            databaseURL: "https://my-project-1504633733231.firebaseio.com",
-            projectId: "my-project-1504633733231",
-            storageBucket: "my-project-1504633733231.appspot.com",
-            messagingSenderId: "71446362369"
-        };
-        firebase.initializeApp(config);
-    </script>
-    <script src="https://cdn.firebase.com/libs/firebaseui/2.6.3/firebaseui.js"></script>
-    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.6.3/firebaseui.css" />
-    <script src="./assets/js/app.js"></script>
-    <script src="./assets/js/weather.js"></script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPUWhQgbEHM3-FjpHcb4yqDBjZ2dwfMs0&callback=initMap">
-    </script>
+<script>
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyAH9fTBxqIfgsYl57B4Rq60dBrY4_sIEIA",
+        authDomain: "my-project-1504633733231.firebaseapp.com",
+        databaseURL: "https://my-project-1504633733231.firebaseio.com",
+        projectId: "my-project-1504633733231",
+        storageBucket: "my-project-1504633733231.appspot.com",
+        messagingSenderId: "71446362369"
+    };
+    firebase.initializeApp(config);
+</script>
+<script src="https://cdn.firebase.com/libs/firebaseui/2.6.3/firebaseui.js"></script>
+<link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.6.3/firebaseui.css" />
+<script src="./assets/js/app.js"></script>
+<script src="./assets/js/weather.js"></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPUWhQgbEHM3-FjpHcb4yqDBjZ2dwfMs0&callback=initMap">
+</script>
 
 </body>
 

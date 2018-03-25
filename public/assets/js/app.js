@@ -1,6 +1,7 @@
 ; (function () {
     $('.selected-event').hide();
     let user = "";
+    let state = "home";
     let db = firebase.database();
     let provider = new firebase.auth.GoogleAuthProvider();
     let selectedEventRender;
@@ -36,6 +37,8 @@
     });
     firebase.auth().onAuthStateChanged(function (user) {
         $('.authentication').empty();
+        $('.logged-in-btn').popover('hide');
+        $('.logged-in-only').empty();
         $(document).off('click', '.add-to-event');
         $('.selected-event').empty().slideUp(500);
 
@@ -55,6 +58,44 @@
             //         right: '50px'
             // })('')
             console.log(user);
+            $(document).on('click', '.my-events', function(){
+                $('.home-container').hide();
+                $('.my-event-list').empty();
+                $('.logged-in-btn').popover('hide');
+                console.log(user)
+                db.ref(`/${user}/events`).once('value').then(function(oData){
+                    console.log(oData)
+                    oData.forEach(d =>{
+                        console.log(d.val())
+                        $.ajax({
+                            url: `https://api.eventful.com/json/events/get`,
+                            method: 'GET',
+                            data: {
+                                app_key: '2DXR829kvdp9JrdB',
+                                id: d.val(),
+                                image_sizes: 'large'
+                            },
+                            dataType: 'jsonp',
+                            crossDomain: true
+                        }).then(data => {
+                            console.log(data);
+                            $('.my-event-list').append($('<li>').text(data.title).data({
+                                title: data.title,
+                                venue: data.venue_name,
+                                address: data.venue_address,
+                                img: data.images.url,
+                                desc: data.description,
+                                lat: data.latitude,
+                                long: data.longitude,
+                                start: data.start_time,
+                                end: data.end_time
+                            }))
+                        })
+                    })
+                })
+                $('.my-events').removeClass('display');
+        
+            })
 
             $('.logged-in-btn')
                 .popover({
@@ -148,6 +189,7 @@
             }
 
 
+
         } else {
             $('.authentication').show();
             $('.logged-in-only').hide();
@@ -207,7 +249,8 @@
                 // page_size: 25,
                 sort_order: 'popularity',
                 date: "Next Week",
-                image_sizes: "large"
+                image_sizes: "large",
+                date: $('#date').val()
             },
             dataType: 'jsonp',
             crossDomain: true
@@ -230,26 +273,6 @@
 
                     getEventWeather(long, lat);
 
-                    // var weatherObj = {
-                    //     url: "https://api.openweathermap.org/data/2.5/weather",
-                    //     method: "GET",
-                    //     data: {
-                    //         appid: weatherAPI,
-                    //         lat: lat,
-                    //         lon: long
-                    //     },
-                    // };
-
-                    // Weather AJAX Call
-                    // $.ajax(weatherObj).then(data => {
-                    //     var tempConverted = parseInt((data.main.temp * (9 / 5) - 459.67));
-                    //     var sunriseTime = moment.unix(data.sys.sunrise).format("HH:mm");
-                    //     var sunsetTime = moment.unix(data.sys.sunset).format("HH:mm");
-                    //     console.log("sunrise: " + sunriseTime);
-                    //     console.log("sunset: " + sunsetTime);
-                    //     console.log(now.diff(moment(data.sys.sunrise), "hours"));
-                    //     $("#temp").append(tempConverted);
-                    // });
 
                     let eventData = {
                         title: oData.events.event[0].title,
@@ -332,20 +355,26 @@
             $listItems = $('#category option');
         })
     })
-
+    
+    $('.navbar-brand').on('click', function(){
+        $('.my-events').addClass('display');
+        $('.home-container').show();
+    })
     $("#search").on('click', (e) => {
         e.preventDefault();
+        $('.my-events').addClass('display');
+        $('.home-container').show();
         show_alert($('#location').val().trim(), $('#category').val().trim());
     });
     $(document).on('click', '.get-tickets', function () {
         window.open($(this).data('event')); fi
     })
     function initMap(lat, long, eventData) {
-        var infoWindow = new google.maps.InfoWindow;
-        var uluru = { lat: lat, lng: long };
+        let infoWindow = new google.maps.InfoWindow;
+        let uluru = { lat: lat, lng: long };
         infoWindow.setPosition(uluru);
 
-        var map = new google.maps.Map(document.getElementById('map'), {
+        let map = new google.maps.Map(document.getElementById('map'), {
             zoom: 15,
             center: uluru
         });
@@ -377,6 +406,7 @@
 $("#location").focus(function () {
     $(".searchAdvanced").show();
 })
+
 
 
 
@@ -412,4 +442,14 @@ $(".btn-main-event").click(function () {
 
 
 })
+
+
+// $.ajax({
+//     url: 'https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyAb5fXBq-i4cv8LvCD-w5VGRfj-B0JoMJ0',
+//     method: 'POST'
+// }).then(e=>{
+//     console.log(e);
+// })
 })()
+
+
