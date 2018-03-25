@@ -4,25 +4,10 @@
     let db = firebase.database();
     let provider = new firebase.auth.GoogleAuthProvider();
     let selectedEventRender;
+
     $(document).on('click', '.google-signin', function () {
         firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION).then(function () {
             return firebase.auth().signInWithPopup(provider);
-
-            // })
-            // ..then(function(result) {
-            // This gives you a Google Access Token. You can use it to access the Google API.
-            //   var token = result.credential.accessToken;
-            // The signed-in user info.
-            //   var user = result.user;
-            // ...
-            //   console.log(user);
-
-            //   $('.event-list').append($('<button>').text("Auth").on('click', function(e){
-            //       db.ref(`${user.uid}/events`).push("event");
-            //   }))
-            //   db.ref(`${user.uid}/events`).on('value', function(d){
-            //       console.log(d.val());
-            //   })
         }).catch(function (error) {
             // Handle Errors here.
             var errorCode = error.code;
@@ -34,26 +19,21 @@
             // ...
         });
     });
+
     firebase.auth().onAuthStateChanged(function (user) {
         $('.authentication').empty();
+        $('.logged-in-btn').popover('hide');
+        $('.logged-in-only').empty();
         $(document).off('click', '.add-to-event');
         $('.selected-event').empty().slideUp(500);
 
         if (user) {
             $('.authentication').hide();
-            // $('.logged-in-popup').hide();
-            // $('.logged-in-only').off();
             $('.logged-in-only').append(
                 $(`<button class="btn btn-outline-info logged-in-btn" data-toggle="popover">`).html(`${user.displayName} <i class="material-icons">keyboard_arrow_down</i>`)
             ).show();
 
-            // .on('click', function(){
-            //     $('.logged-in-popup').css({
-            //         position: 'absolute', 
-            //         top: `${document.querySelector('.logged-in-only').getBoundingClientRect().bottom}px`,
-            //         // right: `${document.querySelector('.logged-in-only').offsetLeft + document.querySelector('.logged-in-only').offsetWidth}px`
-            //         right: '50px'
-            // })('')
+
             console.log(user);
 
             $('.logged-in-btn')
@@ -76,17 +56,10 @@
                         </div>
                     </div>
                 `,
-
-                    // $(`<div>`).append($(`<p>`).text(user.email)).append(
-                    //     $('<button>').addClass('btn btn-outline-danger sign-out').text('Sign Out'))
-                    // ,
                     placement: 'bottom',
                     title: user.displayName,
                     html: true
                 })
-
-            // })
-            // $('.authentication').append($('<button class="sign-out btn btn-outline-danger my-2 my-sm-0">').text("Sign Out"));
             user = user.uid;
             console.log(user);
             let currentEvent = ""
@@ -192,9 +165,6 @@
         $('#location').popover('hide');
         var lat = "";
         var long = "";
-        // var weatherURL = "https://api.openweathermap.org/data/2.5/weather?q=";
-        // var weatherAPI = "44df1c912088b9675614938b52bcbd0e";
-        // var now = moment();
 
         var oArgs = {
             method: 'GET',
@@ -228,28 +198,8 @@
                     getEventWeather(long, lat);
                     console.log(oData);
 
+                    // Get Weather information
                     getEventWeather(long, lat);
-
-                    // var weatherObj = {
-                    //     url: "https://api.openweathermap.org/data/2.5/weather",
-                    //     method: "GET",
-                    //     data: {
-                    //         appid: weatherAPI,
-                    //         lat: lat,
-                    //         lon: long
-                    //     },
-                    // };
-
-                    // Weather AJAX Call
-                    // $.ajax(weatherObj).then(data => {
-                    //     var tempConverted = parseInt((data.main.temp * (9 / 5) - 459.67));
-                    //     var sunriseTime = moment.unix(data.sys.sunrise).format("HH:mm");
-                    //     var sunsetTime = moment.unix(data.sys.sunset).format("HH:mm");
-                    //     console.log("sunrise: " + sunriseTime);
-                    //     console.log("sunset: " + sunsetTime);
-                    //     console.log(now.diff(moment(data.sys.sunrise), "hours"));
-                    //     $("#temp").append(tempConverted);
-                    // });
 
                     let eventData = {
                         title: oData.events.event[0].title,
@@ -333,16 +283,23 @@
         })
     })
 
+    // Event listener for clicking on Search button
     $("#search").on('click', (e) => {
         e.preventDefault();
         show_alert($('#location').val().trim(), $('#category').val().trim());
     });
+
+    // Event listener for clicking on the Get Tickets button
     $(document).on('click', '.get-tickets', function () {
         window.open($(this).data('event')); fi
-    })
+    });
+
+
+    // Initialize Map
     function initMap(lat, long, eventData) {
         var infoWindow = new google.maps.InfoWindow;
         var uluru = { lat: lat, lng: long };
+
         infoWindow.setPosition(uluru);
 
         var map = new google.maps.Map(document.getElementById('map'), {

@@ -2,88 +2,67 @@
 <html>
 
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <!-- Link to Bootstrap & stylesheet -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-        crossorigin="anonymous">
 
-        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-    <!-- Link to Fonts -->
+    <!-- Link to Bootstrap 4.0 CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+    <!-- Link to Google Fonts -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-    <!-- Link to Flickity -->
+    <!-- Link to Flickity CSS -->
     <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
+
+    <!-- Link to Webpage Icon -->
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+
+    <!-- Personal CSS Stylesheet -->
     <link rel="stylesheet" type="text/css" media="screen" href="./assets/css/style.css" />
-
-    <style>
-        #map {
-            height: 400px;
-            width: 100%;
-        }
-
-        ul {
-            list-style: none;
-            -webkit-padding-start: 0;
-        }
-
-        .selected {
-            background-color: grey;
-        }
-
-        #signing-out-modal {
-            background: rgba(255, 255, 255, .8);
-            height: 100vh;
-            width: 100vw;
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index: 999;
-            display: flex;
-            align-content: center;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .display#signing-out-modal {
-            display: none;
-        }
-    </style>
 </head>
 
 
+<!-- Start of Main Content -->
 <div class="container-fluid">
 
-    <!-- Nav bar -->
+    <!-- Start of Navigation Bar -->
     <nav class="navbar navbar-light bg-dark">
         <a class="navbar-brand" href="/">
-            <img src="../assets/images/logo.jpg" class="d-inline-block align-top" alt="Out&amp;About">
+            <img src="./assets/images/logo.jpg" class="d-inline-block align-top" alt="Out&amp;About">
         </a>
 
-
         <div class="nav-links">
-            <div class="logged-in-only">
-
-            </div>
-
+            <div class="logged-in-only"></div>
+            <div class="authentication"></div>
+        </div>
     </nav>
+    <!-- End of Navigation Bar -->
 
-    <img src="../assets/images/dropdown.png" id="expand" alt="expand">
+    <!-- Dropdown to display advanced search options -->
+    <img src="./assets/images/dropdown.png" id="expand" alt="expand">
 
-    <!-- Search -->
 
+    <!-- Start of Search Box-->
+    <div id="weather"></div>
     <div class="row">
         <div class="col-12">
             <div class="searchContainer">
                 <div class="button_box2">
+
+                    <!-- Form control for search options -->
                     <form class="form-wrapper-2 cf">
                         <input type="text" id="location" placeholder="Location" required>
                         <button type="submit" id="search">Search</button>
                     </form>
+                    <!-- End of Form control -->
+
                 </div>
+
+                <!-- Start of Advanced Search options -->
                 <div class="searchAdvanced">
+
+                    <!-- Start of Advanced Search Form -->
                     <form class="form-inline justify-content-center">
                         <div class="form-group col-sm-12">
 
@@ -92,70 +71,84 @@
                                 <option selected>Select</option>
                             </select>
 
-                            <label for="exampleFormControlSelect1">Range</label>
+                            <label for="exampleFormControlSelect1">Date Range</label>
                             <select class="form-control col-sm-3" id="exampleFormControlSelect1">
                                 <option selected>Select</option>
-                                <option selected>Today</option>
-                                <option selected>Next Week</option>
-                                <option selected>Select</option>
-                                <option selected>Select</option>
-                                <option selected>Select</option>
+                                <option value="today">Today</option>
+                                <option value="next week">Next Week</option>
+                                <option value="two weeks">Two Weeks</option>
                             </select>
 
-                            <label for="exampleFormControlSelect1">Date</label>
+                            <label for="exampleFormControlSelect1">Proximity</label>
                             <select class="form-control col-sm-3" id="exampleFormControlSelect1">
                                 <option selected>Select</option>
+                                <option value="5 miles">Within 5 miles</option>
+                                <option value="10 miles">Within 10 miles</option>
+                                <option value="15 miles">Within 15 miles</option>
+                                <option value="20 miles">Within 20 miles</option>
                             </select>
 
                         </div>
                     </form>
+                    <!-- End of Advanced Search Form -->
 
                 </div>
-                </form>
+                <!-- End of Advanced Search Options -->
 
             </div>
         </div>
     </div>
-    </div>
+</div>
+<!-- End of Main Content -->
 
 
-    <div class="row">
-        <div class="col-12 selected-event">
-        </div>
+
+<!-- Start of Events -->
+<div class="row">
+    <div class="col-12 selected-event">
     </div>
-    <div class="row">
-        <div class="col-12">
-            <div id="eventsCarousel">
-                <h5 class="heading" id="eventHeading">TOP EVENTS</h5>
-                <div class="carousel">
-                </div>
-                <!-- end carousel -->
+</div>
+<div class="row">
+    <div class="col-12">
+        <div id="eventsCarousel">
+            <h5 class="heading" id="eventHeading">TOP EVENTS</h5>
+            <div class="carousel">
             </div>
-            <!-- end eventsCarousel -->
+            <!-- end carousel -->
+        </div>
+        <!-- end eventsCarousel -->
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div id="map">
+
         </div>
     </div>
-    <div class="row">
-        <div class="col-12">
-            <div id="map">
-
-            </div>
-        </div>
-    </div>
-
-    <!-- <div id="signing-out-modal">
-        <h1>signing out....</h1>
-    </div> -->
+</div>
 
 </div>
 <div class="loading display" id="loading">
     <img class="img-responsive" src="./assets/images/Loading_icon.gif" alt="loading gif">
 </div>
+
+<!-- Link to jQuery 3.3.1 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- Link to Moment.js Library -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/moment.min.js"></script>
+
+<!-- Link to Firebase Services -->
 <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
+
+<!-- Link to Flickity Library -->
 <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+
+<!-- Link to Popper.js Library -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
     crossorigin="anonymous"></script>
+
+<!-- Link to Bootstrap 4.0 Library -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
     crossorigin="anonymous"></script>
 
@@ -166,7 +159,7 @@
         authDomain: "smu-project-one.firebaseapp.com",
         databaseURL: "https://smu-project-one.firebaseio.com",
         projectId: "smu-project-one",
-        storageBucket: "",
+        storageBucket: "smu-project-one.appspot.com",
         messagingSenderId: "1033281215489"
     };
     firebase.initializeApp(config);
