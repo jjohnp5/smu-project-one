@@ -20,11 +20,12 @@
     <link rel="stylesheet" type="text/css" media="screen" href="./assets/css/style.css" />
 
     <style>
-        #map, #single-event-map {
+        #map,
+        #single-event-map {
             height: 400px;
             width: 100%;
         }
-        
+
 
         ul {
             list-style: none;
@@ -60,7 +61,7 @@
 
     <!-- Nav bar -->
     <nav class="navbar navbar-light bg-dark">
-        <a class="navbar-brand" href="/">
+        <a class="navbar-brand" href="#">
             <img src="../assets/images/logo.jpg" class="d-inline-block align-top" alt="Out&amp;About">
         </a>
 
@@ -76,53 +77,120 @@
 
     </nav>
 
-    <img src="../assets/images/dropdown.png" id="expand" alt="expand">
+    <!-- <img src="../assets/images/dropdown.png" id="expand" alt="expand"> -->
 
     <!-- Search -->
 
-    <div class="row">
-        <div class="col-12">
-            <div class="searchContainer">
-                <div class="button_box2">
-                    <form class="form-wrapper-2 cf">
-                        <input type="text" id="location" placeholder="Location" required>
-                        <button type="submit" id="search">Search</button>
-                    </form>
-                </div>
-                <div class="searchAdvanced">
-                    <form class="form-inline justify-content-center">
-                        <div class="form-group col-sm-12">
-
-                            <label for="category">Category</label>
-                            <select class="form-control col-sm-3" id="category">
-                                <option selected>Select</option>
-                            </select>
-
-                            <label for="exampleFormControlSelect1">Date</label>
-                            <select class="form-control col-sm-3" id="date">
-                                <option selected>Today</option>
-                                <option>Future</option>
-                                <option>Next Week</option>
-                                <option>This Week</option>
-                                <option>Last Week</option>
-                                <option>Past</option>
-                            </select>
-
-
+    <div class="">
+        <div class="searchContainer">
+                <div class="input-group col-sm-4 offset-sm-4">
+                        <input type="text" class="form-control" id="location" placeholder="Location" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                          <button class="btn btn-secondary" type="button" id="search">Search</button>
                         </div>
-                    </form>
+                      </div>
+            <!-- <div class="button_box2">
+                <form class="form-wrapper-2 cf">
+                    <input type="text" id="location" placeholder="Location" required>
+                    <button type="submit" id="search">Search</button>
+                </form>
+            </div> -->
+            <div class="searchAdvanced">
+                    <div class="d-flex justify-content-center">
+                    <form class="form-inline">
 
+                            <div class="form-group">
+                                <label for="category">Category: </label>
+                                <select class="form-control mx-sm-3" id="category">
+                                    <option selected>Select</option>
+                                </select>
+                            
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleFormControlSelect1">Date: </label>
+                                <select class="form-control mx-sm-3" id="date">
+                                    <option selected>Today</option>
+                                    <option>Future</option>
+                                    <option>Next Week</option>
+                                    <option>This Week</option>
+                                    <option>Last Week</option>
+                                    <option>Past</option>
+                                </select>
+                                
+                            </div>
+    
+                            
+    
+    
+                        
+                    </form>
                 </div>
-            </div>
+                </div>
+            <!-- <div class="searchAdvanced">
+                <form class="form-inline justify-content-center">
+                    <div class="form-group col-sm-10 offset-sm-2">
+
+                        <label for="category">Category:</label>
+                        <select class="form-control col-sm-3" id="category">
+                            <option selected>Select</option>
+                        </select>
+
+                        <label for="exampleFormControlSelect1">Date</label>
+                        <select class="form-control col-sm-3" id="date">
+                            <option selected>Today</option>
+                            <option>Future</option>
+                            <option>Next Week</option>
+                            <option>This Week</option>
+                            <option>Last Week</option>
+                            <option>Past</option>
+                        </select>
+
+
+                    </div>
+                </form>
+
+            </div> -->
         </div>
-        <div id="weather"></div>
+
+
     </div>
 
 
     <div class="row">
         <div class="col-12 home-container">
+            <div class="row current-event">
+                <div class="col-9 selected-event">
+                </div>
+                <div class="col-3">
+                    <div class="row">
+                        <div class="col-12">
+                            <div id="map" class="display">
+
+                            </div>
+                            <div id="weather" class="display"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="row">
-                <div class="col-12 selected-event">
+                <div class="col-4 offset-4">
+                    <ul class="pagination display">
+                        <li class="page-item first-page" data-page="1">
+                            <a class="page-link">First Page</a>
+                        </li>
+                        <li class="page-item previous-page">
+                            <a class="page-link"></a>
+                        </li>
+                        <li class="page-item current-page active">
+                            <a class="page-link"></a>
+                        </li>
+                        <li class="page-item next-page">
+                            <a class="page-link"></a>
+                        </li>
+                        <li class="page-item last-page">
+                            <a class="page-link">Last Page</a>
+                        </li>
+                    </ul>
                 </div>
             </div>
             <div class="row">
@@ -136,42 +204,50 @@
                     <!-- end eventsCarousel -->
                 </div>
             </div>
-            <div class="row">
-                <div class="col-12">
-                    <div id="map">
 
-                    </div>
-                </div>
-            </div>
-        </div> <!-- end home container -->
+        </div>
+        <!-- end home container -->
     </div>
     <!-- <div id="signing-out-modal">
         <h1>signing out....</h1>
     </div> -->
     <div class="row my-events-container display">
         <div class="col-12">
+            <h1 class="my-events-h1">My Events</h1>
+        </div>
+        <div class="col-12">
             <div class="row">
-                <div class="col-3">
+                <div class="col-sm-3">
                     <ul class="my-event-list">
 
                     </ul>
                 </div>
                 <div class="col-9 my-event-full">
                     <div class="row">
-                        <div class="col-8">
-                            <img src="" alt="" class="my-event-img">
+                        <div class="col-sm-4">
+                            <img src="" alt="" class="my-event-img img-fluid">
                         </div>
-                        <div class="col-4">
+                        <div class="col-sm-8 single-event-info">
                             <h3 class="my-event-title"></h3>
                             <h4 class="my-event-venue"></h4>
                             <p class="my-event-address"></p>
+                            <p class="my-event-city"></p>
+                            <p class="my-event-state"></p>
+                            <div>
+                            <button type="button" class="btn btn-primary single-get-tickets">Get Tickets</button>
+                            <button type="button" class="btn btn-danger remove-button">&times; Remove from Events</button>
+                            </div>
+                        </div>
+                        <div class="col-sm-8 my-event-description">
+
                         </div>
                     </div>
-                    <div class="row my-event-description">
-                        
+                    <div class="row">
+
+
                     </div>
                     <div class="row">
-                        <div class="col-8 offset-2">
+                        <div class="col-sm-8 offset-sm-2">
                             <div id="single-event-map">
 
                             </div>
