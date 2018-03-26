@@ -254,9 +254,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                     title: oData.events.event[0].title,
                     venue_name: oData.events.event[0].venue_name,
                     venue_address: oData.events.event[0].venue_address,
-                    city_name: oData.events.event[0].city_name
-                    // initialize map using the event data above
-                };initMap(lat, long, eventData, 'map');
+                    city_name: oData.events.event[0].city_name                    
+                };
+                // initialize map using the event data above
+                initMap(lat, long, eventData, 'map');
                 // if there is a carousel, destroy it and recreate later.
                 if ($('.carousel').flickity()) {
                     $('.carousel').flickity('destroy');
