@@ -18,11 +18,13 @@ var weatherAPI = "44df1c912088b9675614938b52bcbd0e";
 
 
 // Get weather details
-function getEventWeather(long, lat) {
+function getEventWeather(long, lat, start_time) {
     var latitude = lat;
     var longitude = long;
+    var eventStart = start_time;
     // console.log("Longitude: " + long);
     // console.log("Latitude: " + lat);
+    console.log(eventStart);
 
     // Create weather object to use for API calls
     var weatherObj = {

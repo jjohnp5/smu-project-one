@@ -172,7 +172,6 @@
             url: "https://api.eventful.com/json/events/search",
             data: {
                 app_key: "2DXR829kvdp9JrdB",
-
                 location: loc,
                 category: cat,
                 // page_size: 25,
@@ -182,7 +181,6 @@
             },
             dataType: 'jsonp',
             crossDomain: true
-
         };
 
         // AJAX Call for Eventful API
@@ -201,19 +199,20 @@
                 lat = parseFloat(oData.events.event[0].latitude);
                 long = parseFloat(oData.events.event[0].longitude)
 
-                // Get weather for events
-                getEventWeather(long, lat);
-
                 // Log the resutls to the console
                 console.log(oData);
 
                 // Object that will hold the event data of first event
                 let eventData = {
                     title: oData.events.event[0].title,
+                    start_time: oData.events.event[0].start_time,
                     venue_name: oData.events.event[0].venue_name,
                     venue_address: oData.events.event[0].venue_address,
                     city_name: oData.events.event[0].city_name,
                 };
+
+                // Get weather for events
+                getEventWeather(long, lat, eventData.start_time);
 
                 // Initialize Google map
                 initMap(lat, long, eventData);
