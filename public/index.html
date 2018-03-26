@@ -9,6 +9,9 @@
     <!-- Link to Bootstrap 4.0 CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 
+    <!-- Link to Firebase Authentication UI CSS -->
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.6.3/firebaseui.css" />
+
     <!-- Link to Google Fonts -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
@@ -121,9 +124,7 @@
 </div>
 <div class="row">
     <div class="col-12">
-        <div id="map">
-
-        </div>
+        <div id="map"></div>
     </div>
 </div>
 
@@ -141,6 +142,9 @@
 <!-- Link to Firebase Services -->
 <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
 
+<!-- Link to Firebase Authentication UI JS -->
+<script src="https://cdn.firebase.com/libs/firebaseui/2.6.3/firebaseui.js"></script>
+
 <!-- Link to Flickity Library -->
 <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
 
@@ -152,6 +156,11 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
     crossorigin="anonymous"></script>
 
+<!-- Link to Google Maps JS API -->
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPUWhQgbEHM3-FjpHcb4yqDBjZ2dwfMs0&callback=initMap">
+</script>
+
+<!-- Firebase Database Configuration -->
 <script>
     // Initialize Firebase
     var config = {
@@ -164,12 +173,10 @@
     };
     firebase.initializeApp(config);
 </script>
-<script src="https://cdn.firebase.com/libs/firebaseui/2.6.3/firebaseui.js"></script>
-<link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.6.3/firebaseui.css" />
+
+<!-- External Javascript Files -->
 <script src="./assets/js/app.js"></script>
 <script src="./assets/js/weather.js"></script>
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPUWhQgbEHM3-FjpHcb4yqDBjZ2dwfMs0&callback=initMap">
-</script>
 
 </body>
 

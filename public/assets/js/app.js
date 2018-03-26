@@ -153,10 +153,11 @@
                 }, 1000)
             }
         }
-    })
+    });
+
     $(document).on('click', '.sign-out', function () {
         firebase.auth().signOut();
-    })
+    });
 
 
     let $listItems;
@@ -184,80 +185,112 @@
 
         };
 
-        $.ajax(oArgs)
-            .then(function (oData) {
-                if (!oData.events) {
-                    $('#loading').addClass('display');
-                    $('#location').val('').focus();
-                    $('#location').popover({ content: 'Location not found. Please try again.', trigger: 'focus click', placement: 'bottom' });
-                    $('#location').popover('show');
+        // AJAX Call for Eventful API
+        $.ajax(oArgs).then(function (oData) {
 
-                } else {
-                    lat = parseFloat(oData.events.event[0].latitude);
-                    long = parseFloat(oData.events.event[0].longitude)
-
-                    // Get weather for events
-                    getEventWeather(long, lat);
-                    console.log(oData);
-
-                    let eventData = {
-                        title: oData.events.event[0].title,
-                        venue_name: oData.events.event[0].venue_name,
-                        venue_address: oData.events.event[0].venue_address,
-                        city_name: oData.events.event[0].city_name,
-
-                    }
-
-                    initMap(lat, long, eventData);
-                    if ($('.carousel').flickity()) {
-                        $('.carousel').flickity('destroy');
-                    }
-                    $('.carousel').empty();
-                    oData.events.event.forEach((event) => {
-                        let eventData = {
-                            lat: event.latitude,
-                            long: event.longitude,
-                            title: event.title,
-                            address: event.venue_address,
-                            venue: event.venue_name,
-                            description: event.description,
-                            city: event.city_name,
-                            id: event.id,
-                            directLink: event.url,
-                            performers: event.performers,
-                            image: event.image ? event.image.large.url : "./assets/images/out&about.jpg"
-
-
-                        }
-                        let wrapper = $('<div class="carousel-cell">');
-                        let card = $('<div class="card">');
-                        let cardImg = $('<img class="img-fluid card-img-top">').attr('src', event.image ? event.image.large.url : "./assets/images/out&about.jpg");
-                        let cardBody = $('<div class="card-body">');
-                        let title = $('<h6>').text(event.title);
-                        let venue_name = $('<p>').text(event.venue_name);
-                        let venue_address = $('<p>').text(event.venue_address).on('click', (e) => {
-                            initMap(parseFloat(eventData.lat), parseFloat(eventData.long), { title: event.title, venue_name: event.venue_name, venue_address: event.venue_address, city_name: event.city_name })
-                        });
-                        let city_name = $('<p>').text(event.city_name);
-                        let moreInfo = $('<button class="btn btn-primary">').text("More info").on('click', () => {
-                            selectedEventRender(eventData);
-                        })
-                        cardBody.append(title, venue_name, venue_address, city_name, moreInfo);
-                        card.append(cardImg, cardBody);
-                        wrapper.append(card);
-                        $('.carousel').append(wrapper);
-                    })
-                    $('.carousel').flickity({ autoPlay: true, adaptiveHeight: true, setGallerySize: false });
-                    $('#loading').addClass('display');
-                }
-            }).catch(err => {
+            // If no data is returned
+            if (!oData.events) {
                 $('#loading').addClass('display');
                 $('#location').val('').focus();
-                $('#location').popover({ content: 'Location not found. Please try again.' });
+                $('#location').popover({ content: 'Location not found. Please try again.', trigger: 'focus click', placement: 'bottom' });
                 $('#location').popover('show');
-            })
+
+            }
+            // Else, get the longitude and latitude convert into floating point number
+            else {
+                lat = parseFloat(oData.events.event[0].latitude);
+                long = parseFloat(oData.events.event[0].longitude)
+
+                // Get weather for events
+                getEventWeather(long, lat);
+
+                // Log the resutls to the console
+                console.log(oData);
+
+                // Object that will hold the event data of first event
+                let eventData = {
+                    title: oData.events.event[0].title,
+                    venue_name: oData.events.event[0].venue_name,
+                    venue_address: oData.events.event[0].venue_address,
+                    city_name: oData.events.event[0].city_name,
+                };
+
+                // Initialize Google map
+                initMap(lat, long, eventData);
+                if ($('.carousel').flickity()) {
+                    $('.carousel').flickity('destroy');
+                };
+
+                // Delete carousel (??)
+                $('.carousel').empty();
+
+                // Iterate through each event returned
+                oData.events.event.forEach((event) => {
+                    let eventData = {
+                        lat: event.latitude,
+                        long: event.longitude,
+                        title: event.title,
+                        address: event.venue_address,
+                        venue: event.venue_name,
+                        description: event.description,
+                        city: event.city_name,
+                        id: event.id,
+                        directLink: event.url,
+                        performers: event.performers,
+                        image: event.image ? event.image.large.url : "./assets/images/out&about.jpg"
+                    };
+
+                    let wrapper = $('<div class="carousel-cell">');
+                    let card = $('<div class="card">');
+                    let cardImg = $('<img class="img-fluid card-img-top">').attr('src', event.image ? event.image.large.url : "./assets/images/out&about.jpg");
+                    let cardBody = $('<div class="card-body">');
+
+                    // Event Title, Heading 6
+                    let title = $('<h6>').text(event.title);
+
+                    // Event Venue Name
+                    let venue_name = $('<p>').text(event.venue_name);
+
+                    // Event Venue Address
+                    let venue_address = $('<p>').text(event.venue_address).on('click', (e) => {
+                        initMap(parseFloat(eventData.lat), parseFloat(eventData.long), {
+                            title: event.title,
+                            venue_name: event.venue_name,
+                            venue_address: event.venue_address,
+                            city_name: event.city_name
+                        })
+                    });
+
+                    // Event City Name
+                    let city_name = $('<p>').text(event.city_name);
+
+                    // Event Info
+                    let moreInfo = $('<button class="btn btn-primary">').text("More info").on('click', () => {
+                        selectedEventRender(eventData);
+                    });
+
+                    // Add venue to the carousel card
+                    cardBody.append(title, venue_name, venue_address, city_name, moreInfo);
+                    card.append(cardImg, cardBody);
+                    wrapper.append(card);
+                    $('.carousel').append(wrapper);
+                });
+                $('.carousel').flickity({
+                    autoPlay: true,
+                    adaptiveHeight: true,
+                    setGallerySize: false
+                });
+                $('#loading').addClass('display');
+            }
+        }).catch(err => {
+            $('#loading').addClass('display');
+            $('#location').val('').focus();
+            $('#location').popover({ content: 'Location not found. Please try again.' });
+            $('#location').popover('show');
+        });
 
     }
+
     const categ = document.querySelector('#category');
     $('#location').on('click', function (e) {
 
@@ -280,7 +313,7 @@
             })
             $listItems = $('#category option');
         })
-    })
+    });
 
     // Event listener for clicking on Search button
     $("#search").on('click', (e) => {
@@ -297,7 +330,10 @@
     // Initialize Map
     function initMap(lat, long, eventData) {
         var infoWindow = new google.maps.InfoWindow;
-        var uluru = { lat: lat, lng: long };
+        var uluru = {
+            lat: lat,
+            lng: long
+        };
 
         infoWindow.setPosition(uluru);
 
@@ -356,14 +392,11 @@
         $(this).hide();
         $(".searchContainer").show();
         $(".searchAdvanced").hide();
-    })
+    });
 
     $(".btn-main-event").click(function () {
         $(".searchAdvanced").hide();
         $(".mainEvent").show();
         $("#eventHeading").html("Other Events");
-
-
-
-    })
+    });
 })()
