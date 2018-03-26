@@ -299,6 +299,9 @@ label {
 .add-to-event{
     margin-left: 10px;
 }
+.home-container, .my-events-container{
+    margin-top: 50px;
+}
 
 /* MY EVENTS*/
 .my-event-list{

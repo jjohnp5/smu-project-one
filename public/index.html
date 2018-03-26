@@ -20,10 +20,11 @@
     <link rel="stylesheet" type="text/css" media="screen" href="./assets/css/style.css" />
 
     <style>
-        #map {
+        #map, #single-event-map {
             height: 400px;
             width: 100%;
         }
+        
 
         ul {
             list-style: none;
@@ -99,8 +100,8 @@
 
                             <label for="exampleFormControlSelect1">Date</label>
                             <select class="form-control col-sm-3" id="date">
-                                <option selected>All</option>
-                                <option>Today</option>
+                                <option selected>Today</option>
+                                <option>Future</option>
                                 <option>Next Week</option>
                                 <option>This Week</option>
                                 <option>Last Week</option>
@@ -147,7 +148,7 @@
     <!-- <div id="signing-out-modal">
         <h1>signing out....</h1>
     </div> -->
-    <div class="row my-events display">
+    <div class="row my-events-container display">
         <div class="col-12">
             <div class="row">
                 <div class="col-3">
@@ -170,8 +171,8 @@
                         
                     </div>
                     <div class="row">
-                        <div class="col-4 offset-4">
-                            <div id="my-event-map">
+                        <div class="col-8 offset-2">
+                            <div id="single-event-map">
 
                             </div>
                         </div>
@@ -210,7 +211,7 @@
 <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.6.3/firebaseui.css" />
 <script src="./assets/js/app.js"></script>
 <script src="./assets/js/weather.js"></script>
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPUWhQgbEHM3-FjpHcb4yqDBjZ2dwfMs0&callback=initMap">
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPUWhQgbEHM3-FjpHcb4yqDBjZ2dwfMs0">
 </script>
 
 </body>
