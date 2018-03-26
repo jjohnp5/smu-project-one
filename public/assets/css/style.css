@@ -25,7 +25,7 @@
     font-size: 1.5em;
 }
 .searchContainer {
-    background-color: #5a71FD
+    background-color: #5a71FD;
 }
 
 .searchAdvanced {
@@ -79,10 +79,12 @@ label {
 }
 
 .form-control{
-    width: 200px;
-    margin: 5px;
+    /* width: 200px; */
+    /* margin: 5px 0; */
 }
-
+.input-group{
+    padding: 10px 0;
+}
 .card-title {
         white-space: nowrap;  
         overflow: hidden;  
@@ -130,7 +132,7 @@ ul {
 }
 
 .button_box2 {
-    margin-top: 5px;
+    /* margin-top: 5px; */
     }
     /*-------------------------------------*/
     .cf:before, .cf:after{
@@ -328,25 +330,52 @@ ul {
 .loading.display{
     display: none;
 }
-.add-to-event{
-    margin-left: 10px;
+.get-tickets{
+    margin-right: 10px;
 }
 .home-container, .my-events-container{
     margin-top: 50px;
 }
+.pagination{
+    margin-top: 35px;
+}
 
 /* MY EVENTS*/
 .my-event-list{
-    max-height: 300px;
-    border: 2px dotted gray;
+    max-height: 800px;
+    /* border: 2px dotted gray; */
     overflow: auto;
 }
 .my-event-list li{
-    border-bottom: 1px dotted black;
+    border-bottom: 1px solid lightgray;
     min-height: 50px;
 }
-.my-event-list li:hover{
-    background: grey;
+.my-event-list::-webkit-scrollbar{
+    /* display: none; */
+    
+    width: 10px;
+    height: 8px;
+}
+.my-event-list::-webkit-scrollbar-thumb{
+    background: #5a71FD;
+}
+.my-event-list li:hover, .event-selected{
+    background: #343a40;
+    color: white;
+}
+.single-event-info{
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.my-events-h1{
+    text-align: center;
+    padding-bottom: 1.5em;
+}
+#single-event-map{
+    margin-top: 50px;
 }
 /* #map{
     margin-top: 50px;
