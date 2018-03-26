@@ -35,6 +35,20 @@ function getEventWeather(long, lat) {
         },
     };
 
+    var futureWeatherObj = {
+        url: "https://api.openweathermap.org/data/2.5/forecast",
+        method: "GET",
+        data: {
+            appid: weatherAPI,
+            lat: latitude,
+            lon: longitude,
+        }
+    }
+
+    $.ajax(futureWeatherObj).then(info => {
+        console.log("Info List: " + info);
+    });
+
     // Weather AJAX Call
     $.ajax(weatherObj).then(data => {
         weatherCode = data.weather[0].id;
@@ -58,11 +72,11 @@ function getEventWeather(long, lat) {
         // Set the icons based on weather code
         setWeatherIcon(weatherCode, tempConverted);
 
-        // console.log("sunrise: " + sunriseTime);
-        // console.log("sunset: " + sunsetTime);
-        // console.log("Current temp: " + tempConverted);
-        // console.log("Weather code: " + weatherCode);
-        // console.log("Time of day: " + timeOfDay);
+        console.log("sunrise: " + sunriseTime);
+        console.log("sunset: " + sunsetTime);
+        console.log("Current temp: " + tempConverted);
+        console.log("Weather code: " + weatherCode);
+        console.log("Time of day: " + timeOfDay);
     });
 }
 

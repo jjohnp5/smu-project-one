@@ -195,11 +195,10 @@
                 } else {
                     lat = parseFloat(oData.events.event[0].latitude);
                     long = parseFloat(oData.events.event[0].longitude)
+
+                    // Get weather for events
                     getEventWeather(long, lat);
                     console.log(oData);
-
-                    // Get Weather information
-                    getEventWeather(long, lat);
 
                     let eventData = {
                         title: oData.events.event[0].title,
