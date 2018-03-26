@@ -35,7 +35,61 @@
 
 
             console.log(user);
+            $(document).on('click', '.my-events', function () {
+                $('.home-container').hide();
+                $('.my-event-list').empty();
+                $('.logged-in-btn').popover('hide');
+                console.log(user)
+                db.ref(`/${user}/events`).once('value').then(function (oData) {
+                    console.log(oData)
+                    oData.forEach(d => {
+                        console.log(d.val())
+                        $.ajax({
+                            url: `https://api.eventful.com/json/events/get`,
+                            method: 'GET',
+                            data: {
+                                app_key: '2DXR829kvdp9JrdB',
+                                id: d.val(),
+                                image_sizes: 'large'
+                            },
+                            dataType: 'jsonp',
+                            crossDomain: true
+                        }).then(data => {
+                            console.log(data);
+                            $('.my-event-list').append($('<li class="my-single-event">').text(data.title).data({
+                                title: data.title,
+                                venue: data.venue_name,
+                                address: data.venue_address,
+                                city: data.city_name,
+                                img: data.images.image[0] ? data.images.image[0].large.url : data.images.image.large.url,
+                                desc: data.description,
+                                lat: data.latitude,
+                                long: data.longitude,
+                                start: data.start_time,
+                                end: data.end_time
+                            }))
+                        })
+                    })
+                })
+                $('.my-events-container').removeClass('display');
 
+            })
+            $(document).on('click', '.my-single-event', function () {
+                let self = $(this);
+                self.addClass('event-selected')
+                $('.my-event-title').text(self.data('title'));
+                $('.my-event-venue').text(self.data('venue'));
+                $('.my-event-address').text(self.data('address'));
+                $('.my-event-description').text(self.data('desc'));
+                $('.my-event-img').attr('src', self.data('img'));
+                initMap(parseFloat(self.data('lat')), parseFloat(self.data('long')), {
+                    title: self.data('title'),
+                    venue_name: self.data('venue'),
+                    venue_address: self.data('address'),
+                    city_name: self.data('city')
+                }, 'my-event-map');
+
+            })
             $('.logged-in-btn')
                 .popover({
                     content: `
@@ -94,6 +148,8 @@
                 let title = $('<h5>').text(eventInfo.title);
                 let venue = $('<p>').text(eventInfo.venue);
                 let address = $('<p>').text(eventInfo.address);
+                let day = moment(event.start_time).format("dddd, MMMM Do YYYY, h:mm:ss a");
+                let date = $('<p>').text(day);
                 let description = $('<div class="row">').append($('<div class="col-8 description">').html(eventInfo.description));
                 let addToEvents = "";
                 let getTickets = $('<button class="btn btn-primary get-tickets">').text("Get Tickets").data({ id: eventInfo.id, event: eventInfo.directLink });
@@ -109,7 +165,7 @@
                     if (!addToEvents) {
                         addToEvents = $('<button class="btn btn-success add-to-event">').html(`&#43; Add to My Events`).data({ id: eventInfo.id, event: eventInfo.directLink, action: "add" });
                     }
-                    col_2.append(title, venue, address, getTickets, addToEvents);
+                    col_2.append(title, venue, address, date, getTickets, addToEvents);
                     setTimeout(function () {
                         eventDiv.empty();
                         row.append(col_1, col_2, description);
@@ -143,9 +199,11 @@
                 let title = $('<h5>').text(eventInfo.title);
                 let venue = $('<p>').text(eventInfo.venue);
                 let address = $('<p>').text(eventInfo.address);
+                let day = moment(event.start_time).format("dddd, MMMM Do YYYY, h:mm:ss a");
+                let date = $('<p>').text(day);
                 let description = $('<div class="row">').append($('<div class="col-8 description">').html(eventInfo.description));
                 let addToEvents = $('<button class="btn btn-primary get-tickets">').text("Get Tickets").data({ id: eventInfo.id, event: eventInfo.directLink });
-                col_2.append(title, venue, address, addToEvents);
+                col_2.append(title, venue, address, date, addToEvents);
                 setTimeout(function () {
                     eventDiv.empty();
                     row.append(col_1, col_2, description);
@@ -161,7 +219,7 @@
 
 
     let $listItems;
-    function show_alert(loc, cat) {
+    function show_alert(loc, cat, date) {
         $('#loading').removeClass('display');
         $('#location').popover('hide');
         var lat = "";
@@ -177,7 +235,8 @@
                 // page_size: 25,
                 sort_order: 'popularity',
                 date: "Next Week",
-                image_sizes: "large"
+                image_sizes: "large",
+                date: date
             },
             dataType: 'jsonp',
             crossDomain: true
@@ -317,35 +376,35 @@
     // Event listener for clicking on Search button
     $("#search").on('click', (e) => {
         e.preventDefault();
-        show_alert($('#location').val().trim(), $('#category').val().trim());
+        $('.my-events-container').addClass('display');
+        $('.home-container').show();
+        show_alert($('#location').val().trim(), $('#category').val().trim(), $('#date').val());
     });
 
     // Event listener for clicking on the Get Tickets button
     $(document).on('click', '.get-tickets', function () {
         window.open($(this).data('event')); fi
-    });
-
-
-    // Initialize Map
-    function initMap(lat, long, eventData) {
-        var infoWindow = new google.maps.InfoWindow;
-        var uluru = {
-            lat: lat,
-            lng: long
-        };
-
+    })
+    function initMap(lat, long, eventData, contain) {
+        let infoWindow = new google.maps.InfoWindow;
+        let uluru = { lat: lat, lng: long };
         infoWindow.setPosition(uluru);
 
-        var map = new google.maps.Map(document.getElementById('map'), {
+        let map = new google.maps.Map(document.getElementById("map"), {
             zoom: 15,
             center: uluru
         });
-        var marker = new google.maps.Marker({
+        let map2 = new google.maps.Map(document.getElementById("single-event-map"), {
+            zoom: 15,
+            center: uluru
+        });
+
+        let marker = new google.maps.Marker({
             position: uluru,
-            map: map
+            map: contain === "map" ? map : map2
         });
         marker.addListener('click', function (e) {
-            infoWindow.open(map);
+            infoWindow.open(contain === "map" ? map : map2);
             infoWindow.setContent(`
                 <div>
                     <h3>${eventData.title}</h3>

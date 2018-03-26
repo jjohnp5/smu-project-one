@@ -331,6 +331,23 @@ ul {
 .add-to-event{
     margin-left: 10px;
 }
+.home-container, .my-events-container{
+    margin-top: 50px;
+}
+
+/* MY EVENTS*/
+.my-event-list{
+    max-height: 300px;
+    border: 2px dotted gray;
+    overflow: auto;
+}
+.my-event-list li{
+    border-bottom: 1px dotted black;
+    min-height: 50px;
+}
+.my-event-list li:hover{
+    background: grey;
+}
 /* #map{
     margin-top: 50px;
 } */

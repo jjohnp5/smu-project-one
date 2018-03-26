@@ -75,12 +75,14 @@
                                 <option selected>Select</option>
                             </select>
 
-                            <label for="exampleFormControlSelect1">Date Range</label>
-                            <select class="form-control col-sm-3" id="exampleFormControlSelect1">
-                                <option selected>Select</option>
-                                <option value="today">Today</option>
-                                <option value="next week">Next Week</option>
-                                <option value="two weeks">Two Weeks</option>
+                            <label for="exampleFormControlSelect1">Date</label>
+                            <select class="form-control col-sm-3" id="date">
+                                <option selected>Today</option>
+                                <option>Future</option>
+                                <option>Next Week</option>
+                                <option>This Week</option>
+                                <option>Last Week</option>
+                                <option>Past</option>
                             </select>
 
                             <label for="exampleFormControlSelect1">Proximity</label>
@@ -111,73 +113,106 @@
 <div class="row">
     <div class="col-12 selected-event">
     </div>
-</div>
-<div class="row">
-    <div class="col-12">
-        <div id="eventsCarousel">
-            <h5 class="heading" id="eventHeading">TOP EVENTS</h5>
-            <div class="carousel">
-            </div>
-            <!-- end carousel -->
-        </div>
-        <!-- end eventsCarousel -->
-    </div>
-</div>
-<div class="row">
-    <div class="col-12">
-        <div id="map"></div>
-    </div>
-</div>
 
-<div class="loading display" id="loading">
-    <img class="img-responsive" src="./assets/images/Loading_icon.gif" alt="loading gif">
-</div>
+    <div class="row">
+        <div class="col-12">
+            <div id="eventsCarousel">
+                <h5 class="heading" id="eventHeading">TOP EVENTS</h5>
+                <div class="carousel">
 
-<!-- Link to jQuery 3.3.1 -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+                    <div class="row my-events-container display">
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-3">
+                                    <ul class="my-event-list">
 
-<!-- Link to Moment.js Library -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/moment.min.js"></script>
+                                    </ul>
+                                </div>
+                                <div class="col-9 my-event-full">
+                                    <div class="row">
+                                        <div class="col-8">
+                                            <img src="" alt="" class="my-event-img">
+                                        </div>
+                                        <div class="col-4">
+                                            <h3 class="my-event-title"></h3>
+                                            <h4 class="my-event-venue"></h4>
+                                            <p class="my-event-address"></p>
+                                        </div>
+                                    </div>
+                                    <div class="row my-event-description">
 
-<!-- Link to Firebase Services -->
-<script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-8 offset-2">
+                                            <div id="single-event-map">
 
-<!-- Link to Firebase Authentication UI JS -->
-<script src="https://cdn.firebase.com/libs/firebaseui/2.6.3/firebaseui.js"></script>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
-<!-- Link to Flickity Library -->
-<script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+                            </div>
+                            <!-- end carousel -->
+                        </div>
+                        <!-- end eventsCarousel -->
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div id="map"></div>
+                    </div>
+                </div>
 
-<!-- Link to Popper.js Library -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-    crossorigin="anonymous"></script>
+                <div class="loading display" id="loading">
+                    <img class="img-responsive" src="./assets/images/Loading_icon.gif" alt="loading gif">
+                </div>
 
-<!-- Link to Bootstrap 4.0 Library -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-    crossorigin="anonymous"></script>
+                <!-- Link to jQuery 3.3.1 -->
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-<!-- Link to Google Maps JS API -->
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPUWhQgbEHM3-FjpHcb4yqDBjZ2dwfMs0&callback=initMap">
-</script>
+                <!-- Link to Moment.js Library -->
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/moment.min.js"></script>
 
-<!-- Firebase Database Configuration -->
-<script>
-    // Initialize Firebase
-    var config = {
-        apiKey: "AIzaSyAM2pNKy6ExfSEyIyWtC7Jg5opfhLd8yPA",
-        authDomain: "smu-project-one.firebaseapp.com",
-        databaseURL: "https://smu-project-one.firebaseio.com",
-        projectId: "smu-project-one",
-        storageBucket: "smu-project-one.appspot.com",
-        messagingSenderId: "1033281215489"
-    };
-    firebase.initializeApp(config);
-</script>
+                <!-- Link to Firebase Services -->
+                <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
 
-<!-- External Javascript Files -->
-<script src="./assets/js/app.js"></script>
-<script src="./assets/js/weather.js"></script>
+                <!-- Link to Firebase Authentication UI JS -->
+                <script src="https://cdn.firebase.com/libs/firebaseui/2.6.3/firebaseui.js"></script>
 
-</body>
+                <!-- Link to Flickity Library -->
+                <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+
+                <!-- Link to Popper.js Library -->
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+                    crossorigin="anonymous"></script>
+
+                <!-- Link to Bootstrap 4.0 Library -->
+                <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+                    crossorigin="anonymous"></script>
+
+                <!-- Link to Google Maps JS API -->
+                <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPUWhQgbEHM3-FjpHcb4yqDBjZ2dwfMs0&callback=initMap">
+                </script>
+
+                <!-- Firebase Database Configuration -->
+                <script>
+                    // Initialize Firebase
+                    var config = {
+                        apiKey: "AIzaSyAM2pNKy6ExfSEyIyWtC7Jg5opfhLd8yPA",
+                        authDomain: "smu-project-one.firebaseapp.com",
+                        databaseURL: "https://smu-project-one.firebaseio.com",
+                        projectId: "smu-project-one",
+                        storageBucket: "smu-project-one.appspot.com",
+                        messagingSenderId: "1033281215489"
+                    };
+                    firebase.initializeApp(config);
+                </script>
+
+                <!-- External Javascript Files -->
+                <script src="./assets/js/app.js"></script>
+                <script src="./assets/js/weather.js"></script>
+
+
+                </body>
 
 </html>
