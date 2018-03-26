@@ -2,57 +2,90 @@
 <html>
 
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- Link to Bootstrap & stylesheet -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
 
-    <!-- Link to Bootstrap 4.0 CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-
-    <!-- Link to Firebase Authentication UI CSS -->
-    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.6.3/firebaseui.css" />
-
-    <!-- Link to Google Fonts -->
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <!-- Link to Fonts -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-    <!-- Link to Flickity CSS -->
+    <!-- Link to Flickity -->
     <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
 
-    <!-- Link to Webpage Icon -->
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-
-    <!-- Personal CSS Stylesheet -->
     <link rel="stylesheet" type="text/css" media="screen" href="./assets/css/style.css" />
+
+    <style>
+        #map,
+        #single-event-map {
+            height: 400px;
+            width: 100%;
+        }
+
+        ul {
+            list-style: none;
+            -webkit-padding-start: 0;
+        }
+
+        .selected {
+            background-color: grey;
+        }
+
+        #signing-out-modal {
+            background: rgba(255, 255, 255, .8);
+            height: 100vh;
+            width: 100vw;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 999;
+            display: flex;
+            align-content: center;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .display#signing-out-modal {
+            display: none;
+        }
+    </style>
 </head>
 
 
-<!-- Start of Main Content -->
 <div class="container-fluid">
 
-    <!-- Start of Navigation Bar -->
+    <!-- Nav bar -->
     <nav class="navbar navbar-light bg-dark">
-        <a class="navbar-brand" href="/">
-            <img src="./assets/images/logo.jpg" class="d-inline-block align-top" alt="Out&amp;About">
+        <a class="navbar-brand" href="#">
+            <img src="../assets/images/logo.jpg" class="d-inline-block align-top" alt="Out&amp;About">
         </a>
 
+
         <div class="nav-links">
-            <div class="logged-in-only"></div>
+            <div class="logged-in-only">
+
+            </div>
+
             <div class="authentication"></div>
+
         </div>
+
     </nav>
-    <!-- End of Navigation Bar -->
 
+    <!-- <img src="../assets/images/dropdown.png" id="expand" alt="expand"> -->
 
-    <!-- Dropdown to display advanced search options -->
-    <!-- <img src="./assets/images/dropdown.png" id="expand" alt="expand"> -->
-
+    <!-- Search -->
 
     <div class="">
         <div class="searchContainer">
             <div class="input-group col-sm-4 offset-sm-4">
                 <input type="text" class="form-control" id="location" placeholder="Location" aria-label="Recipient's username" aria-describedby="basic-addon2">
                 <div class="input-group-append">
-                    <button class="btn btn-secondary" type="button" id="search">Search</button>
+                    <button class="btn btn-success" type="button" id="search">Search</button>
                 </div>
             </div>
             <!-- <div class="button_box2">
@@ -90,19 +123,15 @@
 
 
                     </form>
-                    <!-- End of Form control -->
-
                 </div>
             </div>
             <!-- <div class="searchAdvanced">
                 <form class="form-inline justify-content-center">
                     <div class="form-group col-sm-10 offset-sm-2">
-
                         <label for="category">Category:</label>
                         <select class="form-control col-sm-3" id="category">
                             <option selected>Select</option>
                         </select>
-
                         <label for="exampleFormControlSelect1">Date</label>
                         <select class="form-control col-sm-3" id="date">
                             <option selected>Today</option>
@@ -112,171 +141,149 @@
                             <option>Last Week</option>
                             <option>Past</option>
                         </select>
-
-                            <label for="exampleFormControlSelect1">Proximity</label>
-                            <select class="form-control col-sm-3" id="exampleFormControlSelect1">
-                                <option selected>Select</option>
-                                <option value="5 miles">Within 5 miles</option>
-                                <option value="10 miles">Within 10 miles</option>
-                                <option value="15 miles">Within 15 miles</option>
-                                <option value="20 miles">Within 20 miles</option>
-                            </select>
-
                     </div>
                 </form>
-
             </div> -->
         </div>
 
 
     </div>
-</div>
-<!-- End of Main Content -->
 
 
-<div class="row">
-    <div class="col-12 home-container">
-        <div class="row current-event">
-            <div class="col-9 selected-event">
-            </div>
-            <div class="col-3">
-                <div class="row">
-                    <div class="col-12">
-                        <div id="map" class="display">
+    <div class="row">
+        <div class="col-12 home-container">
+            <div class="row current-event">
+                <div class="col-9 selected-event">
+                </div>
+                <div class="col-3">
+                    <div class="row">
+                        <div class="col-12">
+                            <div id="map" class="display">
 
+                            </div>
+                            <div id="weather" class="display"></div>
                         </div>
-                        <div id="weather" class="display"></div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-4 offset-4">
-                <ul class="pagination display">
-                    <li class="page-item first-page" data-page="1">
-                        <a class="page-link">First Page</a>
-                    </li>
-                    <li class="page-item previous-page">
-                        <a class="page-link"></a>
-                    </li>
-                    <li class="page-item current-page active">
-                        <a class="page-link"></a>
-                    </li>
-                    <li class="page-item next-page">
-                        <a class="page-link"></a>
-                    </li>
-                    <li class="page-item last-page">
-                        <a class="page-link">Last Page</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12">
-                <div id="eventsCarousel">
-                    <h5 class="heading" id="eventHeading">TOP EVENTS</h5>
-                    <div class="carousel">
-                    </div>
-                    <!-- end carousel -->
+            <div class="row">
+                <div class="col-4 offset-4">
+                    <ul class="pagination display">
+                        <li class="page-item first-page" data-page="1">
+                            <a class="page-link">First Page</a>
+                        </li>
+                        <li class="page-item previous-page">
+                            <a class="page-link"></a>
+                        </li>
+                        <li class="page-item current-page active">
+                            <a class="page-link"></a>
+                        </li>
+                        <li class="page-item next-page">
+                            <a class="page-link"></a>
+                        </li>
+                        <li class="page-item last-page">
+                            <a class="page-link">Last Page</a>
+                        </li>
+                    </ul>
                 </div>
-                <!-- end eventsCarousel -->
             </div>
-        </div>
-
-    </div>
-    <!-- end home container -->
-</div>
-
-<div class="row">
-    <div class="col-12">
-        <h1 class="my-events-h1">My Events</h1>
-    </div>
-    <div class="col-12">
-        <div class="row">
-            <div class="col-sm-3">
-                <ul class="my-event-list">
-
-                </ul>
-            </div>
-            <div class="col-9 my-event-full">
-                <div class="row">
-                    <div class="col-sm-4">
-                        <img src="" alt="" class="my-event-img img-fluid">
-                    </div>
-                    <div class="col-sm-8 single-event-info">
-                        <h3 class="my-event-title"></h3>
-                        <h4 class="my-event-venue"></h4>
-                        <p class="my-event-address"></p>
-                        <p class="my-event-city"></p>
-                        <p class="my-event-state"></p>
-                        <div>
-                            <button type="button" class="btn btn-primary single-get-tickets">Get Tickets</button>
-                            <button type="button" class="btn btn-danger remove-button">&times; Remove from Events</button>
+            <div class="row">
+                <div class="col-12">
+                    <div id="eventsCarousel">
+                        <h5 class="heading" id="eventHeading">TOP EVENTS</h5>
+                        <div class="carousel">
                         </div>
-                    </div>
-                    <div class="col-sm-8 my-event-description">
-
+                        <!-- end carousel -->
                     </div>
                     <!-- end eventsCarousel -->
                 </div>
-                <div class="row">
+            </div>
 
+        </div>
+        <!-- end home container -->
+    </div>
+    <!-- <div id="signing-out-modal">
+        <h1>signing out....</h1>
+    </div> -->
+    <div class="row my-events-container display">
+        <div class="col-12">
+            <h1 class="my-events-h1">My Events</h1>
+        </div>
+        <div class="col-12">
+            <div class="row">
+                <div class="col-sm-3">
+                    <ul class="my-event-list">
 
+                    </ul>
                 </div>
-                <div class="row">
-                    <div class="col-sm-8 offset-sm-2">
-                        <div id="single-event-map">
-
-                            <div class="loading display" id="loading">
-                                <img class="img-responsive" src="./assets/images/Loading_icon.gif" alt="loading gif">
+                <div class="col-9 my-event-full">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <img src="" alt="" class="my-event-img img-fluid">
+                        </div>
+                        <div class="col-sm-8 single-event-info">
+                            <h3 class="my-event-title"></h3>
+                            <h4 class="my-event-venue"></h4>
+                            <p class="my-event-address"></p>
+                            <p class="my-event-city"></p>
+                            <p class="my-event-state"></p>
+                            <div>
+                                <button type="button" class="btn btn-primary single-get-tickets">Get Tickets</button>
+                                <button type="button" class="btn btn-danger remove-button">&times; Remove from Events</button>
                             </div>
+                        </div>
+                        <div class="col-sm-8 my-event-description">
 
-                            <!-- Link to jQuery 3.3.1 -->
-                            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-                            <!-- Link to Moment.js Library -->
-                            <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/moment.min.js"></script>
-
-                            <!-- Link to Firebase Services -->
-                            <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
-
-                            <!-- Link to Firebase Authentication UI JS -->
-                            <script src="https://cdn.firebase.com/libs/firebaseui/2.6.3/firebaseui.js"></script>
-
-                            <!-- Link to Flickity Library -->
-                            <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
-
-                            <!-- Link to Popper.js Library -->
-                            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-                                crossorigin="anonymous"></script>
-
-                            <!-- Link to Bootstrap 4.0 Library -->
-                            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-                                crossorigin="anonymous"></script>
-
-                            <!-- Link to Google Maps JS API -->
-                            <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPUWhQgbEHM3-FjpHcb4yqDBjZ2dwfMs0&callback=initMap">
-                            </script>
-
-                            <!-- Firebase Database Configuration -->
-                            <script>
-                                // Initialize Firebase
-                                var config = {
-                                    apiKey: "AIzaSyAM2pNKy6ExfSEyIyWtC7Jg5opfhLd8yPA",
-                                    authDomain: "smu-project-one.firebaseapp.com",
-                                    databaseURL: "https://smu-project-one.firebaseio.com",
-                                    projectId: "smu-project-one",
-                                    storageBucket: "smu-project-one.appspot.com",
-                                    messagingSenderId: "1033281215489"
-                                };
-                                firebase.initializeApp(config);
-                            </script>
-
-                            <!-- External Javascript Files -->
-                            <script src="./assets/js/app.js"></script>
-                            <script src="./assets/js/weather.js"></script>
+                        </div>
+                    </div>
+                    <div class="row">
 
 
-                            </body>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-8 offset-sm-2">
+                            <div id="single-event-map">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="loading display" id="loading">
+    <img class="img-responsive" src="./assets/images/Loading_icon.gif" alt="loading gif">
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/moment.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
+<script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+
+<script>
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyAH9fTBxqIfgsYl57B4Rq60dBrY4_sIEIA",
+        authDomain: "my-project-1504633733231.firebaseapp.com",
+        databaseURL: "https://my-project-1504633733231.firebaseio.com",
+        projectId: "my-project-1504633733231",
+        storageBucket: "my-project-1504633733231.appspot.com",
+        messagingSenderId: "71446362369"
+    };
+    firebase.initializeApp(config);
+</script>
+<script src="https://cdn.firebase.com/libs/firebaseui/2.6.3/firebaseui.js"></script>
+<link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.6.3/firebaseui.css" />
+<script src="./assets/js/app.js"></script>
+<script src="./assets/js/weather.js"></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPUWhQgbEHM3-FjpHcb4yqDBjZ2dwfMs0">
+</script>
+
+</body>
 
 </html>
