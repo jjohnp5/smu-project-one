@@ -24,7 +24,6 @@ function getEventWeather(long, lat, start_time) {
     var eventStart = start_time;
     // console.log("Longitude: " + long);
     // console.log("Latitude: " + lat);
-    console.log(eventStart);
 
     // Create weather object to use for API calls
     var weatherObj = {
@@ -79,6 +78,7 @@ function getEventWeather(long, lat, start_time) {
 
     $.ajax(forecast).then(info => {
         console.log("info.list[0].dt.txt: " + info.list[0].dt_txt);
+        console.log("eventStart: " + eventStart);
     });
 
 }

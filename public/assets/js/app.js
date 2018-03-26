@@ -367,8 +367,6 @@
         $(".searchAdvanced").show();
     })
 
-
-
     var searchLocation;
 
     $("#search").click(function () {
