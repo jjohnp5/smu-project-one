@@ -36,6 +36,7 @@ function getEventWeather(long, lat, start_time) {
         },
     };
 
+    // Create a forecast object to use for 5 day API
     var forecast = {
         url: "https://api.openweathermap.org/data/2.5/forecast",
         method: "GET",
@@ -76,6 +77,7 @@ function getEventWeather(long, lat, start_time) {
         console.log("Time of day: " + timeOfDay);
     });
 
+    // Test the 5 day forecast API call
     $.ajax(forecast).then(info => {
         console.log("info.list[0].dt.txt: " + info.list[0].dt_txt);
         console.log("eventStart: " + eventStart);
