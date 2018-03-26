@@ -130,7 +130,7 @@
             $(document).on('click', '.add-to-event', function () {
 
                 window.open($(this).data('event'));
-            })
+            });
             selectedEventRender = function (eventInfo) {
                 let eventDiv = $('.selected-event');
                 eventDiv.empty();

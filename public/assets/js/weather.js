@@ -35,7 +35,7 @@ function getEventWeather(long, lat) {
         },
     };
 
-    var futureWeatherObj = {
+    var forecast = {
         url: "https://api.openweathermap.org/data/2.5/forecast",
         method: "GET",
         data: {
@@ -44,10 +44,6 @@ function getEventWeather(long, lat) {
             lon: longitude,
         }
     }
-
-    $.ajax(futureWeatherObj).then(info => {
-        console.log("Info List: " + info);
-    });
 
     // Weather AJAX Call
     $.ajax(weatherObj).then(data => {
@@ -78,6 +74,11 @@ function getEventWeather(long, lat) {
         console.log("Weather code: " + weatherCode);
         console.log("Time of day: " + timeOfDay);
     });
+
+    $.ajax(forecast).then(info => {
+        console.log("info.list[0].dt.txt: " + info.list[0].dt_txt);
+    });
+
 }
 
 // Sets weather details based on weather code and current temp
