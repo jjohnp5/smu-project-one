@@ -1,6 +1,12 @@
 "use strict";
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _defineProperty(obj, key, value) {
+    if (key in obj) {
+        Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });
+    } else {
+        obj[key] = value;
+    }return obj;
+}
 
 ;(function () {
     $('.selected-event').hide();
@@ -209,7 +215,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 page_size: 15,
                 sort_order: 'popularity',
                 date: "Next Week",
-                image_sizes: "large"
+                image_sizes: "large",
+                sort_order: 'date'
             }, _defineProperty(_data, "date", date), _defineProperty(_data, "page_number", page ? page : 1), _data),
             //the Api endpoint is a full json endpoint and just returning json
             dataType: 'jsonp',
@@ -224,7 +231,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 $('#location').val('').focus();
                 $('#location').popover({ content: 'Location not found. Please try again.', trigger: 'focus click', placement: 'bottom' });
                 $('#location').popover('show');
+                $("#location").attr("placeholder", "Please enter a location.");
+                $("#location").css("background-color", "lightyellow");
             } else {
+                $("#location").css("background-color", "white");
+                $("#eventHeading").text("Events in " + ($("#location").val() ? $("#location").val().trim().toUpperCase() : "DALLAS"));
                 // grab all data that came with request
                 lat = parseFloat(oData.events.event[0].latitude);
                 long = parseFloat(oData.events.event[0].longitude);
@@ -248,6 +259,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 $('.next-page').data('page', nextPage);
                 $('.next-page a').text(nextPage);
                 $('.last-page').data('page', oData.page_count);
+                $('.last-page a').text(oData.page_count);
                 // display pagination
                 $('.pagination').removeClass('display');
                 getEventWeather(long, lat);
@@ -257,7 +269,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                     title: oData.events.event[0].title,
                     venue_name: oData.events.event[0].venue_name,
                     venue_address: oData.events.event[0].venue_address,
-                    city_name: oData.events.event[0].city_name                    
+                    city_name: oData.events.event[0].city_name
                 };
                 // initialize map using the event data above
                 initMap(lat, long, eventData, 'map');
@@ -296,14 +308,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                     var day = moment(event.start_time).format("dddd, MMMM Do YYYY, h:mm:ss a");
                     var date = $('<p>').text(day);
                     //create a more info button when clicked will render the event, will use either the signed out or signed in option of the render event.
-                    var moreInfo = $('<button class="btn btn-primary">').text("More info").on('click', function () {                        
+                    var moreInfo = $('<button class="btn btn-primary">').text("More info").on('click', function () {
                         selectedEventRender(eventData);
                         initMap(parseFloat(eventData.lat), parseFloat(eventData.long), { title: event.title, venue_name: event.venue_name, venue_address: event.venue_address, city_name: event.city_name }, 'map');
                         $('.current-event').show();
                         $('html').animate({
                             scrollTop: $('.searchContainer').offset().top
                         }, 1000);
-
                     });
                     //append all the items to each other, starting from the deepest of the box working its way to the largest(shallow).
                     cardBody.append(title, venue_name, venue_address, city_name, date, moreInfo);
@@ -317,7 +328,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 // show the current event
                 $('.carousel').flickity({ autoPlay: true, adaptiveHeight: true, setGallerySize: false });
                 $('#loading').addClass('display');
-                $('.current-event').show();
+                // $('.current-event').show();
             }
             //catch errors of the request.
         }).catch(function (err) {
@@ -357,14 +368,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         //when logo is clicked, hide my-events-container and show the home container. does not refresh the page.
         $('#loading').removeClass('display');
         $('.my-events-container').addClass('display');
+        $('#category').val('');
+        $('#location').val('');
         $('.home-container').show();
         $('.logged-in-btn').popover('hide');
+        runSearch("dallas", $('#category').val(), $('#date').val(), "");
         $('.current-event').hide();
-        var fakeLoad = setTimeout(function(){
+        var fakeLoad = setTimeout(function () {
             $('#loading').addClass('display');
             clearTimeout(fakeLoad);
-        }, 500)
-        
+        }, 500);
     });
     $("#search").on('click', function (e) {
         //prevent the default submission of form.
@@ -390,7 +403,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
             runSearch($('#location').val().trim() ? $('#location').val().trim() : "dallas", $('#category').val().trim(), $('#date').val(), $(this).data('page'));
         }
-
     });
 
     function signedInEventRender(eventInfo) {
@@ -499,42 +511,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
 
     $(".searchAdvanced").hide();
-    // $("#expand").hide();
     $(".myEvents").hide();
     $(".mainEvent").hide();
-    // })
-
-    // $("#location").focus(function () {
-    //     $(".searchAdvanced").toggle();
-    // })
-
 
     var searchLocation = void 0;
 
     $("#search").click(function () {
         event.preventDefault();
-
-        searchLocation = $("#location").val().trim().toUpperCase();
-        if (searchLocation === "") {
-            $("#location").attr("placeholder", "Please enter a location.");
-            $("#location").css("background-color", "lightyellow");
-        } else {
-            // $(".searchContainer").hide();
-            // $("#expand").show();
-            $("#location").css("background-color", "white");
-            $("#eventHeading").html("Events in " + searchLocation);
-        }
     });
-
-    // $("#expand").click(function () {
-    //     $(this).hide();
-    //     $(".searchContainer").show();
-    //     $(".searchAdvanced").hide();
-    // })
-
-    // $(".btn-main-event").click(function () {
-    //     $(".searchAdvanced").hide();
-    //     $(".mainEvent").show();
-    //     $("#eventHeading").html("Other Events");
 
 })();
