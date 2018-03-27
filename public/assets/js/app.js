@@ -120,6 +120,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 }, 'my-event-map');
                 //display the contents of the event.
                 $('.my-event-full').removeClass('display');
+                $('html').animate({
+                    scrollTop: $('.my-event-full').offset().top
+                }, 1000);
             });
             // initialie pop over for logged in button.
             $('.logged-in-btn').popover({
@@ -293,9 +296,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                     var day = moment(event.start_time).format("dddd, MMMM Do YYYY, h:mm:ss a");
                     var date = $('<p>').text(day);
                     //create a more info button when clicked will render the event, will use either the signed out or signed in option of the render event.
-                    var moreInfo = $('<button class="btn btn-primary">').text("More info").on('click', function () {
+                    var moreInfo = $('<button class="btn btn-primary">').text("More info").on('click', function () {                        
                         selectedEventRender(eventData);
                         initMap(parseFloat(eventData.lat), parseFloat(eventData.long), { title: event.title, venue_name: event.venue_name, venue_address: event.venue_address, city_name: event.city_name }, 'map');
+                        $('.current-event').show();
+                        $('html').animate({
+                            scrollTop: $('.searchContainer').offset().top
+                        }, 1000);
+
                     });
                     //append all the items to each other, starting from the deepest of the box working its way to the largest(shallow).
                     cardBody.append(title, venue_name, venue_address, city_name, date, moreInfo);
@@ -347,9 +355,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
     $('.navbar-brand').on('click', function () {
         //when logo is clicked, hide my-events-container and show the home container. does not refresh the page.
+        $('#loading').removeClass('display');
         $('.my-events-container').addClass('display');
         $('.home-container').show();
         $('.logged-in-btn').popover('hide');
+        $('.current-event').hide();
+        var fakeLoad = setTimeout(function(){
+            $('#loading').addClass('display');
+            clearTimeout(fakeLoad);
+        }, 500)
+        
     });
     $("#search").on('click', function (e) {
         //prevent the default submission of form.
@@ -375,6 +390,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
             runSearch($('#location').val().trim() ? $('#location').val().trim() : "dallas", $('#category').val().trim(), $('#date').val(), $(this).data('page'));
         }
+
     });
 
     function signedInEventRender(eventInfo) {

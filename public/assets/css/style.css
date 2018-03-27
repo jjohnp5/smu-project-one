@@ -1,3 +1,7 @@
+body{
+    padding-bottom: 50px;
+}
+
 .btn-outline-primary {
     border: 1px solid #5A71FD;
     color: #5A71FD;
@@ -325,10 +329,10 @@ label {
     height: 8px;
 }
 .my-event-list::-webkit-scrollbar-thumb{
-    background: #5a71FD;
+    background: #343a40;
 }
 .my-event-list li:hover, .event-selected{
-    background: #343a40;
+    background: #5a71FD;
     color: white;
 }
 .single-event-info{
@@ -344,6 +348,9 @@ label {
 }
 #single-event-map{
     margin-top: 50px;
+}
+.single-event-info .btn{
+    margin: 5px;
 }
 /* #map{
     margin-top: 50px;
