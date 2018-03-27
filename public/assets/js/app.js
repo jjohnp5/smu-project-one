@@ -5,10 +5,10 @@ function _defineProperty(obj, key, value) {
         Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });
     } else {
         obj[key] = value;
-    }return obj;
+    } return obj;
 }
 
-;(function () {
+; (function () {
     $('.selected-event').hide();
     var user = "";
     var db = firebase.database();
@@ -294,7 +294,7 @@ function _defineProperty(obj, key, value) {
                         performers: event.performers,
                         image: event.image ? event.image.large.url : "./assets/images/out&about.jpg"
                         // appending items to carousel can only be done in JS, can't be done by just referencing
-                    };var wrapper = $('<div class="carousel-cell">');
+                    }; var wrapper = $('<div class="carousel-cell">');
                     var card = $('<div class="card">');
                     var cardImg = $('<img class="img-fluid card-img-top">').attr('src', event.image ? event.image.large.url : "./assets/images/out&about.jpg");
                     var cardBody = $('<div class="card-body">');
