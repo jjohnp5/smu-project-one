@@ -1,20 +1,14 @@
 "use strict";
 
-<<<<<<< HEAD
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-; (function () {
-=======
 function _defineProperty(obj, key, value) {
     if (key in obj) {
         Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });
     } else {
         obj[key] = value;
-    }return obj;
+    } return obj;
 }
 
-;(function () {
->>>>>>> 197a8aa5ae8af56d5828724544e503ed484ed65a
+; (function () {
     $('.selected-event').hide();
     var user = "";
     var db = firebase.database();
@@ -132,12 +126,9 @@ function _defineProperty(obj, key, value) {
                 }, 'my-event-map');
                 //display the contents of the event.
                 $('.my-event-full').removeClass('display');
-<<<<<<< HEAD
-=======
                 $('html').animate({
                     scrollTop: $('.my-event-full').offset().top
                 }, 1000);
->>>>>>> 197a8aa5ae8af56d5828724544e503ed484ed65a
             });
             // initialie pop over for logged in button.
             $('.logged-in-btn').popover({
@@ -224,12 +215,8 @@ function _defineProperty(obj, key, value) {
                 page_size: 15,
                 sort_order: 'popularity',
                 date: "Next Week",
-<<<<<<< HEAD
-                image_sizes: "large"
-=======
                 image_sizes: "large",
                 sort_order: 'date'
->>>>>>> 197a8aa5ae8af56d5828724544e503ed484ed65a
             }, _defineProperty(_data, "date", date), _defineProperty(_data, "page_number", page ? page : 1), _data),
             //the Api endpoint is a full json endpoint and just returning json
             dataType: 'jsonp',
@@ -244,15 +231,11 @@ function _defineProperty(obj, key, value) {
                 $('#location').val('').focus();
                 $('#location').popover({ content: 'Location not found. Please try again.', trigger: 'focus click', placement: 'bottom' });
                 $('#location').popover('show');
-<<<<<<< HEAD
-            } else {
-=======
                 $("#location").attr("placeholder", "Please enter a location.");
                 $("#location").css("background-color", "lightyellow");
             } else {
                 $("#location").css("background-color", "white");
                 $("#eventHeading").text("Events in " + ($("#location").val() ? $("#location").val().trim().toUpperCase() : "DALLAS"));
->>>>>>> 197a8aa5ae8af56d5828724544e503ed484ed65a
                 // grab all data that came with request
                 lat = parseFloat(oData.events.event[0].latitude);
                 long = parseFloat(oData.events.event[0].longitude);
@@ -276,10 +259,7 @@ function _defineProperty(obj, key, value) {
                 $('.next-page').data('page', nextPage);
                 $('.next-page a').text(nextPage);
                 $('.last-page').data('page', oData.page_count);
-<<<<<<< HEAD
-=======
                 $('.last-page a').text(oData.page_count);
->>>>>>> 197a8aa5ae8af56d5828724544e503ed484ed65a
                 // display pagination
                 $('.pagination').removeClass('display');
                 getEventWeather(long, lat);
@@ -290,14 +270,9 @@ function _defineProperty(obj, key, value) {
                     venue_name: oData.events.event[0].venue_name,
                     venue_address: oData.events.event[0].venue_address,
                     city_name: oData.events.event[0].city_name
-<<<<<<< HEAD
-                    // initialize map using the event data above
-                }; initMap(lat, long, eventData, 'map');
-=======
                 };
                 // initialize map using the event data above
                 initMap(lat, long, eventData, 'map');
->>>>>>> 197a8aa5ae8af56d5828724544e503ed484ed65a
                 // if there is a carousel, destroy it and recreate later.
                 if ($('.carousel').flickity()) {
                     $('.carousel').flickity('destroy');
@@ -319,11 +294,7 @@ function _defineProperty(obj, key, value) {
                         performers: event.performers,
                         image: event.image ? event.image.large.url : "./assets/images/out&about.jpg"
                         // appending items to carousel can only be done in JS, can't be done by just referencing
-<<<<<<< HEAD
                     }; var wrapper = $('<div class="carousel-cell">');
-=======
-                    };var wrapper = $('<div class="carousel-cell">');
->>>>>>> 197a8aa5ae8af56d5828724544e503ed484ed65a
                     var card = $('<div class="card">');
                     var cardImg = $('<img class="img-fluid card-img-top">').attr('src', event.image ? event.image.large.url : "./assets/images/out&about.jpg");
                     var cardBody = $('<div class="card-body">');
@@ -340,13 +311,10 @@ function _defineProperty(obj, key, value) {
                     var moreInfo = $('<button class="btn btn-primary">').text("More info").on('click', function () {
                         selectedEventRender(eventData);
                         initMap(parseFloat(eventData.lat), parseFloat(eventData.long), { title: event.title, venue_name: event.venue_name, venue_address: event.venue_address, city_name: event.city_name }, 'map');
-<<<<<<< HEAD
-=======
                         $('.current-event').show();
                         $('html').animate({
                             scrollTop: $('.searchContainer').offset().top
                         }, 1000);
->>>>>>> 197a8aa5ae8af56d5828724544e503ed484ed65a
                     });
                     //append all the items to each other, starting from the deepest of the box working its way to the largest(shallow).
                     cardBody.append(title, venue_name, venue_address, city_name, date, moreInfo);
@@ -360,11 +328,7 @@ function _defineProperty(obj, key, value) {
                 // show the current event
                 $('.carousel').flickity({ autoPlay: true, adaptiveHeight: true, setGallerySize: false });
                 $('#loading').addClass('display');
-<<<<<<< HEAD
-                $('.current-event').show();
-=======
                 // $('.current-event').show();
->>>>>>> 197a8aa5ae8af56d5828724544e503ed484ed65a
             }
             //catch errors of the request.
         }).catch(function (err) {
@@ -402,24 +366,18 @@ function _defineProperty(obj, key, value) {
 
     $('.navbar-brand').on('click', function () {
         //when logo is clicked, hide my-events-container and show the home container. does not refresh the page.
-<<<<<<< HEAD
-=======
         $('#loading').removeClass('display');
->>>>>>> 197a8aa5ae8af56d5828724544e503ed484ed65a
         $('.my-events-container').addClass('display');
         $('#category').val('');
         $('#location').val('');
         $('.home-container').show();
         $('.logged-in-btn').popover('hide');
-<<<<<<< HEAD
-=======
         runSearch("dallas", $('#category').val(), $('#date').val(), "");
         $('.current-event').hide();
         var fakeLoad = setTimeout(function () {
             $('#loading').addClass('display');
             clearTimeout(fakeLoad);
         }, 500);
->>>>>>> 197a8aa5ae8af56d5828724544e503ed484ed65a
     });
     $("#search").on('click', function (e) {
         //prevent the default submission of form.
@@ -555,48 +513,11 @@ function _defineProperty(obj, key, value) {
     $(".searchAdvanced").hide();
     $(".myEvents").hide();
     $(".mainEvent").hide();
-<<<<<<< HEAD
-    // })
-
-    // $("#location").focus(function () {
-    //     $(".searchAdvanced").toggle();
-    // })
-
-
-    var searchLocation = void 0;
-
-    $("#search").click(function () {
-        event.preventDefault();
-
-        searchLocation = $("#location").val().trim().toUpperCase();
-        if (searchLocation === "") {
-            $("#location").attr("placeholder", "Please enter a location.");
-            $("#location").css("background-color", "lightyellow");
-        } else {
-            // $(".searchContainer").hide();
-            // $("#expand").show();
-            $("#location").css("background-color", "white");
-            $("#eventHeading").html("Events in " + searchLocation);
-        }
-    });
-
-    // $("#expand").click(function () {
-    //     $(this).hide();
-    //     $(".searchContainer").show();
-    //     $(".searchAdvanced").hide();
-    // })
-
-    // $(".btn-main-event").click(function () {
-    //     $(".searchAdvanced").hide();
-    //     $(".mainEvent").show();
-    //     $("#eventHeading").html("Other Events");
-=======
 
     var searchLocation = void 0;
 
     $("#search").click(function () {
         event.preventDefault();
     });
->>>>>>> 197a8aa5ae8af56d5828724544e503ed484ed65a
 
 })();
