@@ -367,6 +367,9 @@ ul {
     background: #5a71FD;
     color: white;
 }
+.my-event-list li:hover{
+    cursor: pointer;
+}
 .single-event-info{
     padding: 30px;
     display: flex;

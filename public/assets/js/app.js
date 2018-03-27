@@ -368,7 +368,6 @@ function _defineProperty(obj, key, value) {
         //when logo is clicked, hide my-events-container and show the home container. does not refresh the page.
         $('#loading').removeClass('display');
         $('.my-events-container').addClass('display');
-        $('#category').val('');
         $('#location').val('');
         $('.home-container').show();
         $('.logged-in-btn').popover('hide');
